@@ -1,0 +1,25 @@
+{
+  "mcpAllowlist": [
+    "user-playwright:*"
+  ],
+  "terminalAllowlist": [
+    "python *",
+    "pip install openpyxl",
+    "pip install *",
+    "New-Item *",
+    "mkdir *",
+    "Remove-Item *"
+  ],
+  "autoRun": {
+    "allow_instructions": [
+      "Allow Playwright MCP browser navigation, snapshots, clicks, typing, and screenshots for FAM test execution.",
+      "Allow read-only shell commands that inspect files, directories, or git state.",
+      "Allow python and pip commands for openpyxl Excel write-back, DBLibrary, SSHLibrary, and test script generation.",
+      "Allow creating screenshots/ directories and cleaning .playwright-mcp/ stale logs between test runs."
+    ],
+    "block_instructions": [
+      "Block commands that delete or modify files outside the current project directory.",
+      "Block npx commands regardless of arguments."
+    ]
+  }
+}

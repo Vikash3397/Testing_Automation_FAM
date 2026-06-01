@@ -1,0 +1,795 @@
+- generic [ref=e1]:
+  - link "Skip to Main Content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - banner [ref=e4]:
+      - button "Expand / Collapse Navigation" [expanded] [ref=e6] [cursor=pointer]
+      - link "DPM Financial Account Manager" [ref=e9] [cursor=pointer]:
+        - /url: "f?p=100:HOME:7410005540140:::::"
+        - img [ref=e10]
+        - generic [ref=e11]: DPM Financial Account Manager
+      - list [ref=e13]:
+        - listitem [ref=e14]:
+          - link " Contact" [ref=e15] [cursor=pointer]:
+            - /url: https://www.csgi.com/contact/
+            - generic [ref=e16]: 
+            - generic [ref=e17]: Contact
+        - listitem [ref=e18]:
+          - link " About" [ref=e19] [cursor=pointer]:
+            - /url: "f?p=105:1001::::::"
+            - generic [ref=e20]: 
+            - generic [ref=e21]: About
+        - listitem [ref=e22]:
+          - button "ADMIN " [ref=e23] [cursor=pointer]:
+            - generic [ref=e24]: ADMIN
+            - generic [ref=e25]: 
+  - generic [ref=e26]:
+    - navigation "CSG Financial Account Manager" [ref=e181]:
+      - tree "CSG Financial Account Manager" [ref=e182]:
+        - group [ref=e183]:
+          - generic [ref=e184] [cursor=pointer]: 
+          - treeitem "Home" [level=1] [ref=e185] [cursor=pointer]
+          - generic [ref=e186] [cursor=pointer]: 
+          - generic [ref=e187] [cursor=pointer]: 
+          - treeitem "Administration" [level=1] [ref=e188] [cursor=pointer]
+          - text:           
+          - generic [ref=e189] [cursor=pointer]: 
+          - generic [ref=e190] [cursor=pointer]: 
+          - treeitem "Implementation" [level=1] [ref=e191] [cursor=pointer]
+          - text:        
+          - generic [ref=e192] [cursor=pointer]: 
+          - generic [ref=e193] [cursor=pointer]: 
+          - treeitem "Reference Data" [level=1] [ref=e194] [cursor=pointer]
+          - text:                
+          - generic [ref=e195] [cursor=pointer]: 
+          - generic [ref=e196] [cursor=pointer]: 
+          - treeitem "Dispute Management" [level=1] [ref=e197] [cursor=pointer]
+          - text:  
+          - generic [ref=e198] [cursor=pointer]: 
+          - generic [ref=e199] [cursor=pointer]: 
+          - treeitem "EDR Matching" [level=1] [ref=e200] [cursor=pointer]
+          - text:        
+          - generic [ref=e201] [cursor=pointer]: 
+          - generic [ref=e202] [cursor=pointer]: 
+          - treeitem "Financial Management" [expanded] [level=1] [ref=e203] [cursor=pointer]:
+            - text: Financial Management
+            - group [ref=e204]:
+              - generic [ref=e205]: 
+              - treeitem "Manage Documents" [level=2] [selected] [ref=e206]
+              - generic [ref=e207]: 
+              - treeitem "Load Documents" [level=2] [ref=e208]
+              - generic [ref=e209]: 
+              - treeitem "Adjustments" [level=2] [ref=e210]
+              - generic [ref=e211]: 
+              - treeitem "Payments" [level=2] [ref=e212]
+              - generic [ref=e213]: 
+              - treeitem "Netting" [level=2] [ref=e214]
+              - generic [ref=e215]: 
+              - treeitem "Digital Signature" [level=2] [ref=e216]
+              - generic [ref=e217]: 
+              - treeitem "QR Code Generation" [level=2] [ref=e218]
+          - generic [ref=e219] [cursor=pointer]: 
+          - generic [ref=e220] [cursor=pointer]: 
+          - treeitem "ERP Management" [level=1] [ref=e221] [cursor=pointer]
+          - generic [ref=e222] [cursor=pointer]: 
+          - generic [ref=e223] [cursor=pointer]: 
+          - treeitem "Reports" [level=1] [ref=e224] [cursor=pointer]
+          - generic [ref=e225] [cursor=pointer]: 
+          - generic [ref=e226] [cursor=pointer]: 
+          - treeitem "Audit" [level=1] [ref=e227] [cursor=pointer]
+          - generic [ref=e228] [cursor=pointer]: 
+          - treeitem "About" [level=1] [ref=e229] [cursor=pointer]
+    - generic [ref=e27]:
+      - generic [ref=e30]:
+        - generic [ref=e32]: 
+        - generic [ref=e33]:
+          - heading "Manage Documents" [level=1] [ref=e34]
+          - list [ref=e35]:
+            - listitem [ref=e36]:
+              - heading "Manage Document Transactions" [level=1] [ref=e37]
+              - text: \
+        - generic [ref=e39]:
+          - button "Create Notes" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]: 
+            - text: Create Notes 
+          - button "Load Data" [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 
+            - text: Load Data 
+          - button "Manage ERP" [ref=e44] [cursor=pointer]:
+            - generic [ref=e45]: 
+            - text: Manage ERP 
+          - button "Approve Document" [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]: 
+            - text: Approve Document 
+          - button "Cancel Document" [ref=e48] [cursor=pointer]:
+            - generic [ref=e49]: 
+            - text: Cancel Document 
+          - button "Send Email" [ref=e50] [cursor=pointer]:
+            - generic [ref=e51]: 
+            - text: Send Email 
+          - button "Download Documents" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: 
+            - text: Download Documents 
+      - generic [ref=e54]:
+        - main [ref=e56]:
+          - generic [ref=e58]:
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e67]:
+                  - generic [ref=e69]:
+                    - text: Transaction Type
+                    - generic [ref=e70]: (Value Required)
+                  - radiogroup "Transaction Type (Value Required)" [ref=e73]:
+                    - generic [ref=e74]:
+                      - radio "ACTUAL" [checked] [ref=e75]
+                      - generic [ref=e76] [cursor=pointer]: ACTUAL
+                    - generic [ref=e77]:
+                      - radio "ACCRUALS" [ref=e78]
+                      - generic [ref=e79] [cursor=pointer]: ACCRUALS
+                - generic [ref=e81]:
+                  - generic [ref=e83]: Franchise
+                  - generic [ref=e85]:
+                    - combobox [ref=e86]
+                    - combobox "ALL" [ref=e89] [cursor=pointer]:
+                      - generic [ref=e90]: ALL
+              - generic [ref=e91]:
+                - generic [ref=e93]:
+                  - generic [ref=e95]:
+                    - text: Statement Direction
+                    - generic [ref=e96]: (Value Required)
+                  - radiogroup "Statement Direction (Value Required)" [ref=e99]:
+                    - generic [ref=e100]:
+                      - radio "RECEIVE" [ref=e101]
+                      - generic [ref=e102] [cursor=pointer]: RECEIVE
+                    - generic [ref=e103]:
+                      - radio "SEND" [checked] [ref=e104]
+                      - generic [ref=e105] [cursor=pointer]: SEND
+                - generic [ref=e107]:
+                  - generic [ref=e109]: Organisation
+                  - generic [ref=e111]:
+                    - combobox [ref=e112]
+                    - combobox "ALL" [ref=e115] [cursor=pointer]:
+                      - generic [ref=e116]: ALL
+              - generic [ref=e117]:
+                - generic [ref=e119]:
+                  - generic [ref=e121]:
+                    - text: Billing Period
+                    - generic [ref=e122]: (Value Required)
+                  - generic [ref=e124]:
+                    - listbox [ref=e125]:
+                      - option [ref=e126]: 2026/03/01 - 2026/03/31
+                      - option [selected] [ref=e127]: 2026/02/01 - 2026/02/28
+                      - option [ref=e128]: 2026/01/01 - 2026/01/31
+                    - combobox [ref=e131]:
+                      - list [ref=e132]:
+                        - generic [ref=e244] [cursor=pointer]: ×
+                        - listitem "2026/02/01 - 2026/02/28" [ref=e245]: × 2026/02/01 - 2026/02/28
+                        - listitem [ref=e133]:
+                          - textbox [ref=e134]
+                - generic [ref=e136]:
+                  - generic [ref=e138]: Agreement Type
+                  - generic [ref=e140]:
+                    - combobox [ref=e141]
+                    - combobox "ALL" [ref=e144] [cursor=pointer]:
+                      - generic [ref=e145]: ALL
+              - generic [ref=e149]:
+                - generic [ref=e151]: Agreement
+                - generic [ref=e153]:
+                  - listbox [ref=e154]:
+                    - option [ref=e230]: RJILAP-AIRTDL SMS Rev
+                    - option [ref=e231]: RJILAP_AIRTAP_ACTUAL_OFFNET_R
+                    - option [ref=e232]: RJILDL_AIRTHR_Exp
+                    - option [ref=e233]: RJILDL_AIRTKL_ACCURAL_OFF_SO
+                    - option [ref=e234]: RJILDL_AIRTKN_ACTUAL_OFF_E_SO
+                    - option [ref=e235]: RJILKO_AIRTTN_Exp
+                    - option [ref=e236]: RJILPB_RJILKO_ACTUAL_ONNET_R
+                    - option [ref=e237]: RJILUW-RJILKO_ONNET_REVENUE
+                  - combobox [ref=e165]:
+                    - list [ref=e166]:
+                      - listitem [ref=e167]:
+                        - textbox "ALL" [ref=e168]
+            - generic [ref=e248]:
+              - heading "Manage Document (Actuals-Send)" [level=2] [ref=e249]
+              - generic [ref=e252]:
+                - generic [ref=e253]:
+                  - search "Search bar of Manage Document (Actuals-Send)" [ref=e254]:
+                    - generic [ref=e256]:
+                      - button "Select columns to search" [ref=e258] [cursor=pointer]:
+                        - generic [ref=e259]: 
+                        - generic [ref=e260]: 
+                      - searchbox "Search Report" [ref=e262]
+                      - button "Go" [ref=e264] [cursor=pointer]:
+                        - generic [ref=e265]: Go
+                    - button "Actions" [ref=e268] [cursor=pointer]:
+                      - text: Actions
+                      - generic [ref=e269]: 
+                  - region "Buttons next to search bar of Manage Document (Actuals-Send)" [ref=e270]:
+                    - button "Load Status" [ref=e271] [cursor=pointer]:
+                      - generic [ref=e272]: 
+                      - text: Load Status 
+                    - button "Refresh" [ref=e273] [cursor=pointer]:
+                      - generic [ref=e274]: 
+                - generic [ref=e275]:
+                  - region "Report settings of Manage Document (Actuals-Send)" [ref=e276]:
+                    - generic [ref=e277]:
+                      - heading [level=3] [ref=e278]: Report Settings
+                      - heading "Report Settings" [level=3] [ref=e279]:
+                        - button "Report Settings" [expanded] [ref=e280] [cursor=pointer]:
+                          - generic [ref=e281]: 
+                    - generic [ref=e282]:
+                      - region "Document Status not like 'CANCELLED'" [ref=e283]:
+                        - generic [ref=e284]:
+                          - checkbox "Filter" [checked] [ref=e285]
+                          - generic [ref=e286] [cursor=pointer]: 
+                        - generic [ref=e288]: 
+                        - button "Edit Filter" [ref=e290] [cursor=pointer]:
+                          - generic [ref=e291]: Document Status not like 'CANCELLED'
+                          - generic [ref=e292]: Edit Filter
+                        - button "Remove Filter" [ref=e294] [cursor=pointer]:
+                          - generic [ref=e295]: 
+                          - generic [ref=e296]: Remove Filter
+                      - region "Document Type != 'PAYMENT'" [ref=e297]:
+                        - generic [ref=e298]:
+                          - checkbox "Filter" [ref=e299]
+                          - generic [ref=e300] [cursor=pointer]: 
+                        - generic [ref=e302]: 
+                        - button "Edit Filter" [ref=e304] [cursor=pointer]:
+                          - generic [ref=e305]: Document Type != 'PAYMENT'
+                          - generic [ref=e306]: Edit Filter
+                        - button "Remove Filter" [ref=e308] [cursor=pointer]:
+                          - generic [ref=e309]: 
+                          - generic [ref=e310]: Remove Filter
+                    - text:  
+                  - region "Data view of Manage Document (Actuals-Send)" [ref=e311]:
+                    - generic [ref=e313]:
+                      - table [ref=e315]:
+                        - row [ref=e316]:
+                          - columnheader [ref=e317]:
+                            - checkbox [ref=e319]
+                          - columnheader [ref=e321]:
+                            - generic [ref=e322] [cursor=pointer]: View Document Summary
+                          - columnheader [ref=e324]:
+                            - generic [ref=e325] [cursor=pointer]: View Document/ Backup Report
+                          - columnheader [ref=e327]:
+                            - generic [ref=e328] [cursor=pointer]: View Netting
+                          - columnheader [ref=e330]:
+                            - generic [ref=e331] [cursor=pointer]: Load Document
+                          - columnheader [ref=e333]:
+                            - generic [ref=e334] [cursor=pointer]: Add. Adjustment
+                          - columnheader [ref=e336]:
+                            - generic [ref=e337] [cursor=pointer]: Add. Payment
+                          - columnheader [ref=e339]:
+                            - generic [ref=e340] [cursor=pointer]: Trans Type
+                          - columnheader [ref=e342]:
+                            - generic [ref=e343] [cursor=pointer]: Document Type
+                          - columnheader [ref=e345]:
+                            - generic [ref=e346] [cursor=pointer]:
+                              - text: Agreement Name
+                              - generic [ref=e348]: 
+                          - columnheader [ref=e350]:
+                            - generic [ref=e351] [cursor=pointer]: Billing Period
+                          - columnheader [ref=e353]:
+                            - generic [ref=e354] [cursor=pointer]: Notes
+                          - columnheader [ref=e356]:
+                            - generic [ref=e357] [cursor=pointer]: Document Status
+                          - columnheader [ref=e359]:
+                            - generic [ref=e360] [cursor=pointer]: Document Number
+                          - columnheader [ref=e362]:
+                            - generic [ref=e363] [cursor=pointer]: Document Date
+                          - columnheader [ref=e365]:
+                            - generic [ref=e366] [cursor=pointer]: Due Date
+                          - columnheader [ref=e368]:
+                            - generic [ref=e369] [cursor=pointer]: Currency
+                          - columnheader [ref=e371]:
+                            - generic [ref=e372] [cursor=pointer]: Load Status
+                          - columnheader [ref=e374]:
+                            - generic [ref=e375] [cursor=pointer]: Call Count
+                          - columnheader [ref=e377]:
+                            - generic [ref=e378] [cursor=pointer]: Usage
+                          - columnheader [ref=e380]:
+                            - generic [ref=e381] [cursor=pointer]: Amount
+                          - columnheader [ref=e383]:
+                            - generic [ref=e384] [cursor=pointer]: VBR Amount
+                          - columnheader [ref=e386]:
+                            - generic [ref=e387] [cursor=pointer]: ADJ Amount
+                          - columnheader [ref=e389]:
+                            - generic [ref=e390] [cursor=pointer]: Tax Amount
+                          - columnheader [ref=e392]:
+                            - generic [ref=e393] [cursor=pointer]: Total Amount
+                          - columnheader [ref=e395]:
+                            - generic [ref=e396] [cursor=pointer]: ICT Total Amount
+                          - columnheader [ref=e398]:
+                            - generic [ref=e399] [cursor=pointer]: Partner Total Amount
+                          - columnheader [ref=e401]:
+                            - generic [ref=e402] [cursor=pointer]: Amount Diff.
+                          - columnheader [ref=e404]:
+                            - generic [ref=e405] [cursor=pointer]: Amount Diff. %
+                          - columnheader [ref=e407]:
+                            - generic [ref=e408] [cursor=pointer]: User Status
+                          - columnheader [ref=e410]:
+                            - generic [ref=e411] [cursor=pointer]: Total Payment Amount
+                          - columnheader [ref=e413]:
+                            - generic [ref=e414] [cursor=pointer]: Total Withheld Amount
+                          - columnheader [ref=e416]:
+                            - generic [ref=e417] [cursor=pointer]: Dispute Records
+                          - columnheader [ref=e419]:
+                            - generic [ref=e420] [cursor=pointer]: Withheld Records
+                          - columnheader [ref=e422]:
+                            - generic [ref=e423] [cursor=pointer]: Total Records
+                          - columnheader [ref=e425]:
+                            - generic [ref=e426] [cursor=pointer]: Payment Amount
+                          - columnheader [ref=e428]:
+                            - generic [ref=e429] [cursor=pointer]: Balance Due
+                          - columnheader [ref=e431]:
+                            - generic [ref=e432] [cursor=pointer]: Business Prime
+                          - columnheader [ref=e434]:
+                            - generic [ref=e435] [cursor=pointer]: Email Sent
+                          - columnheader [ref=e437]:
+                            - generic [ref=e438] [cursor=pointer]: Email Sent Backup
+                          - columnheader [ref=e440]:
+                            - generic [ref=e441] [cursor=pointer]: Approved By
+                          - columnheader [ref=e443]:
+                            - generic [ref=e444] [cursor=pointer]: Approved On
+                          - columnheader [ref=e446]:
+                            - generic [ref=e447] [cursor=pointer]: ERP Processed Ind
+                          - columnheader [ref=e449]:
+                            - generic [ref=e450] [cursor=pointer]: ERP Detail
+                          - columnheader [ref=e452]:
+                            - generic [ref=e453] [cursor=pointer]: ERP Date
+                          - columnheader [ref=e455]:
+                            - generic [ref=e456] [cursor=pointer]: ERP Amount
+                      - table "Manage Document (Actuals-Send), Report = Primary Default, View = Report" [ref=e459]:
+                        - rowgroup [ref=e460]:
+                          - row "View Document Summary View Document/ Backup Report View Netting Load Document Add. Adjustment Add. Payment Trans Type Document Type Agreement Name Billing Period Notes Document Status Document Number Document Date Due Date Currency Load Status Call Count Usage Amount VBR Amount ADJ Amount Tax Amount Total Amount ICT Total Amount Partner Total Amount Amount Diff. Amount Diff. % User Status Total Payment Amount Total Withheld Amount Dispute Records Withheld Records Total Records Payment Amount Balance Due Business Prime Email Sent Email Sent Backup Approved By Approved On ERP Processed Ind ERP Detail ERP Date ERP Amount" [ref=e461]:
+                            - columnheader [ref=e462]:
+                              - checkbox [ref=e464]
+                            - columnheader "View Document Summary" [ref=e466]:
+                              - link "View Document Summary" [ref=e467] [cursor=pointer]:
+                                - /url: "#"
+                                - text: View Document
+                                - text: Summary
+                            - columnheader "View Document/ Backup Report" [ref=e469]:
+                              - link "View Document/ Backup Report" [ref=e470] [cursor=pointer]:
+                                - /url: "#"
+                                - text: View Document/
+                                - text: Backup Report
+                            - columnheader "View Netting" [ref=e472]:
+                              - link "View Netting" [ref=e473] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Load Document" [ref=e475]:
+                              - link "Load Document" [ref=e476] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Add. Adjustment" [ref=e478]:
+                              - link "Add. Adjustment" [ref=e479] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Add. Payment" [ref=e481]:
+                              - link "Add. Payment" [ref=e482] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Trans Type" [ref=e484]:
+                              - link "Trans Type" [ref=e485] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Document Type" [ref=e487]:
+                              - link "Document Type" [ref=e488] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Agreement Name" [ref=e490]:
+                              - link "Agreement Name" [ref=e491] [cursor=pointer]:
+                                - /url: "#"
+                                - text: Agreement Name
+                                - generic [ref=e493]: 
+                            - columnheader "Billing Period" [ref=e495]:
+                              - link "Billing Period" [ref=e496] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Notes" [ref=e498]:
+                              - link "Notes" [ref=e499] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Document Status" [ref=e501]:
+                              - link "Document Status" [ref=e502] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Document Number" [ref=e504]:
+                              - link "Document Number" [ref=e505] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Document Date" [ref=e507]:
+                              - link "Document Date" [ref=e508] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Due Date" [ref=e510]:
+                              - link "Due Date" [ref=e511] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Currency" [ref=e513]:
+                              - link "Currency" [ref=e514] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Load Status" [ref=e516]:
+                              - link "Load Status" [ref=e517] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Call Count" [ref=e519]:
+                              - link "Call Count" [ref=e520] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Usage" [ref=e522]:
+                              - link "Usage" [ref=e523] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Amount" [ref=e525]:
+                              - link "Amount" [ref=e526] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "VBR Amount" [ref=e528]:
+                              - link "VBR Amount" [ref=e529] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ADJ Amount" [ref=e531]:
+                              - link "ADJ Amount" [ref=e532] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Tax Amount" [ref=e534]:
+                              - link "Tax Amount" [ref=e535] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Total Amount" [ref=e537]:
+                              - link "Total Amount" [ref=e538] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ICT Total Amount" [ref=e540]:
+                              - link "ICT Total Amount" [ref=e541] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Partner Total Amount" [ref=e543]:
+                              - link "Partner Total Amount" [ref=e544] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Amount Diff." [ref=e546]:
+                              - link "Amount Diff." [ref=e547] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Amount Diff. %" [ref=e549]:
+                              - link "Amount Diff. %" [ref=e550] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "User Status" [ref=e552]:
+                              - link "User Status" [ref=e553] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Total Payment Amount" [ref=e555]:
+                              - link "Total Payment Amount" [ref=e556] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Total Withheld Amount" [ref=e558]:
+                              - link "Total Withheld Amount" [ref=e559] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Dispute Records" [ref=e561]:
+                              - link "Dispute Records" [ref=e562] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Withheld Records" [ref=e564]:
+                              - link "Withheld Records" [ref=e565] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Total Records" [ref=e567]:
+                              - link "Total Records" [ref=e568] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Payment Amount" [ref=e570]:
+                              - link "Payment Amount" [ref=e571] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Balance Due" [ref=e573]:
+                              - link "Balance Due" [ref=e574] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Business Prime" [ref=e576]:
+                              - link "Business Prime" [ref=e577] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Email Sent" [ref=e579]:
+                              - link "Email Sent" [ref=e580] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Email Sent Backup" [ref=e582]:
+                              - link "Email Sent Backup" [ref=e583] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Approved By" [ref=e585]:
+                              - link "Approved By" [ref=e586] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "Approved On" [ref=e588]:
+                              - link "Approved On" [ref=e589] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ERP Processed Ind" [ref=e591]:
+                              - link "ERP Processed Ind" [ref=e592] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ERP Detail" [ref=e594]:
+                              - link "ERP Detail" [ref=e595] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ERP Date" [ref=e597]:
+                              - link "ERP Date" [ref=e598] [cursor=pointer]:
+                                - /url: "#"
+                            - columnheader "ERP Amount" [ref=e600]:
+                              - link "ERP Amount" [ref=e601] [cursor=pointer]:
+                                - /url: "#"
+                          - row "ACTUAL INVOICE RJILDL_AIRTKN_ACTUAL_OFF_E_SO 2026/02/01 - 2026/02/28 OPEN TBD INR SUCCESS 178,590 178,590.00 12,033.40 0.00 0.00 0.00 12,033.40 - - - - - 0.00 0 0 0 0 0 12,033.40 ADMIN - Pending Document Approval -" [ref=e603]:
+                            - cell [ref=e604]:
+                              - checkbox [ref=e605]
+                            - cell [ref=e606]:
+                              - link [ref=e607] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=200:612:7410005540140::::P612_TRANS_ID,P612_AGREEMENT_ID,P612_BP_NAME,P612_CURRENCY,P612_DOCUMENT_NUMBER,P612_BILLING_METHOD,P612_CASH_FLOW,P612_TRANS_TYPE,P612_PAGE_NO:6,36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,INR,TBD,I,E,ACTUAL,601\\u0026p_dialog_cs=QUsqK2Hp2C9nTGQsNFEXd1ea7bN5bpH7PZFrOzQlFuBASV7GmEbck7QVGg8-kDSTIDUFNo_sdN3YlAP96RJWhw',{title:'View Document Transactions Summary',height:'900',width:'1680',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                                - generic [ref=e608]: 
+                            - cell [ref=e609]:
+                              - link [ref=e610] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:611:7410005540140::::P611_AGREEMENT_ID,P611_BP_NAME,P611_PAGE_NO,P611_TRANS_ID,P611_AGREEMENT_NAME:36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,601,6,36\\u0026p_dialog_cs=1uFCwuEfdYP_PeXeTtCZOowP1PM8NHdY5vq2tp5k3hVabcOx3bqxdZ-BFFyj65zoPM_Qa3YKLS8hzVS9PlPX3Q',{title:'View Documents',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                            - cell [ref=e611]: 
+                            - cell [ref=e612]:
+                              - link [ref=e613] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:621:7410005540140:::621:P621_AGREEMENT_ID,P621_BP_NAME,P621_CURRENCY,P621_STATEMENT_DIRECTION2,P621_TRANS_ID,P621_DOCUMENT_STATUS:36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,INR,S,6,O\\u0026cs=1p81aaYFvqO8HXQmYyHqYwFC0oVPdd2619zZHEnzr_t7-Pn1TX_bMSnYXPwSWPsx0NEojbMQTpWT1BBmkeCmBtQ\\u0026p_dialog_cs=GzQUkAWbCTbwn56v8Qb1RTwuHmnCPvHWW_PGppmSwSuw8hU9_FtxMj7zqcQHYSI2wyGWcWEa7ipS43e9MccZQQ',{title:'Load Document',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null,close: function(event, ui) {apex.navigation.dialog.close(true,{});}},'t-Dialog-page--standard '+'','#REPORT601');"
+                            - cell [ref=e614]:
+                              - link [ref=e615] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:631:7410005540140:::631:P631_PAGENO,P631_STATEMENT_DIRECTION,P631_DOCUMENT_TYPE,P631_AGREEMENT_ID,P631_BP_NAME_ADJUSTED,P631_DOCUMENT_NUMBER,P631_CURRENCY,P631_DOCUMENT_DATE,P631_EXISTING_DOCUMENT,P631_TRANS_TYPE:601,S,DOC,36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,TBD,INR,,N,ACTUAL\\u0026cs=1pYXkmswSmmkwW97udWet7jnPyRf--NXczB2Vu1t1p-bP0bwsPoAPUbqW8nFzTiC0BjS9oE9iBxioUxHz2x5n2A\\u0026p_dialog_cs=X3UVYGy0O00KMF7iRmCqzYuv-3UaGAsTRD_1g5pjlHwj1qRuaA0FpdsUNQhC3hPMfozLfGlgvX6yK5e99gTDzg',{title:'Create Adjustments',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                            - cell [ref=e616]
+                            - cell "ACTUAL" [ref=e617]
+                            - cell "INVOICE" [ref=e618]
+                            - cell "RJILDL_AIRTKN_ACTUAL_OFF_E_SO" [ref=e619]:
+                              - generic [ref=e620]: RJILDL_AIRTKN_ACTUAL_OFF_E_SO
+                            - cell "2026/02/01 - 2026/02/28" [ref=e621]:
+                              - generic [ref=e622]: 2026/02/01 - 2026/02/28
+                            - cell [ref=e623]:
+                              - link [ref=e624] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:617:7410005540140::::P617_FILTER_AGREEMENT_ID,P617_FILTER_BP_NAME,P617_TRANS_ID,P617_DOCUMENT_TYPE:36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,6,INV\\u0026p_dialog_cs=HoVhn3YGi005NsyJZdvdH76MmNH0o4OmnSwX9x4bRKDfecSPXmZnaIVgA0rtlSxhfTqg9uab4uDRibyd8BTydQ',{title:'Notes',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                                - generic [ref=e625]: 
+                            - cell "OPEN" [ref=e626]:
+                              - link "OPEN" [ref=e627] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:614:7410005540140::::P614_TRANS_ID,P614_PAGE_NO,P614_AGREEMENT_ID,P614_BP_NAME,P614_DOCUMENT_NUMBER,P614_CURRENCY,P614_TRANS_TYPE,P614_BILLED_PRODUCT:6,601,36,2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,TBD,INR,ACTUAL\\u0026p_dialog_cs=NIaRI5r7L1qu9HdzZJj9YHmFPf86LFlRidQiJOhkduU0xjvdw2dSwHSl1-RbQTNcTtBJmeFpbSUaAxv-EemwnQ',{title:'View Document Transactions',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                            - cell "TBD" [ref=e628]:
+                              - generic [ref=e629]: TBD
+                            - cell [ref=e630]
+                            - cell [ref=e631]
+                            - cell "INR" [ref=e632]
+                            - cell "SUCCESS" [ref=e633]:
+                              - link "SUCCESS" [ref=e634] [cursor=pointer]:
+                                - /url: "javascript:apex.navigation.dialog('f?p=100:610:7410005540140::::P610_BP_NAME,P610_AGREEMENT_ID,P610_TRANSACTION_TYPE:2026\\u00252F02\\u00252F01\\u002520-\\u0025202026\\u00252F02\\u00252F28,36,ACTUAL\\u0026p_dialog_cs=Rqn6KZgygexTwBYQH8aA_-rDvbZYfu0uOQU6c0H4Gni8AvxvXSkpemHfJmNx_s1d7eDNk1xIUTvKE6HjK00vBw',{title:'Load Status',height:'auto',width:'720',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'','#REPORT601');"
+                            - cell "178,590" [ref=e635]
+                            - cell "178,590.00" [ref=e636]
+                            - cell "12,033.40" [ref=e637]
+                            - cell "0.00" [ref=e638]
+                            - cell "0.00" [ref=e639]
+                            - cell "0.00" [ref=e640]
+                            - cell "12,033.40" [ref=e641]
+                            - cell "-" [ref=e642]
+                            - cell "-" [ref=e643]
+                            - cell "-" [ref=e644]
+                            - cell "-" [ref=e645]
+                            - cell "-" [ref=e646]
+                            - cell "0.00" [ref=e647]
+                            - cell "0" [ref=e648]
+                            - cell "0" [ref=e649]
+                            - cell "0" [ref=e650]
+                            - cell "0" [ref=e651]
+                            - cell "0" [ref=e652]
+                            - cell "12,033.40" [ref=e653]
+                            - cell "ADMIN" [ref=e654]
+                            - cell [ref=e655]
+                            - cell [ref=e656]
+                            - cell "-" [ref=e657]
+                            - cell [ref=e658]
+                            - cell "Pending Document Approval" [ref=e659]
+                            - cell [ref=e660]: 
+                            - cell [ref=e661]
+                            - cell "-" [ref=e662]
+                    - region "Pagination of Manage Document (Actuals-Send)" [ref=e663]:
+                      - list [ref=e664]:
+                        - listitem [ref=e665]: 1 - 1
+        - contentinfo [ref=e174]:
+          - link "" [ref=e178] [cursor=pointer]:
+            - /url: "#top"
+            - generic [ref=e179]: 
+  - text:        ...
+  - dialog "View Document Transactions Summary" [ref=e666]:
+    - generic [ref=e667]:
+      - heading "View Document Transactions Summary" [level=1] [ref=e668]
+      - button "Close" [active] [ref=e669] [cursor=pointer]:
+        - generic [ref=e670]: 
+    - generic [ref=e671]:
+      - text: 
+      - iframe [ref=e672]:
+        - dialog "View Document Transactions Summary" [ref=f4e2]:
+          - main [ref=f4e5]:
+            - generic [ref=f4e8]:
+              - generic [ref=f4e12]:
+                - generic [ref=f4e15]:
+                  - generic [ref=f4e17]: Transaction ID
+                  - generic [ref=f4e20]: "6"
+                - generic [ref=f4e21]:
+                  - generic [ref=f4e23]:
+                    - generic [ref=f4e25]: Agreement
+                    - generic [ref=f4e28]: RJILDL_AIRTKN_ACTUAL_OFF_E_SO
+                  - generic [ref=f4e30]:
+                    - generic [ref=f4e32]: Billing Period
+                    - generic [ref=f4e35]: 2026/02/01 - 2026/02/28
+                - generic [ref=f4e36]:
+                  - generic [ref=f4e38]:
+                    - generic [ref=f4e40]: Billing Method
+                    - generic [ref=f4e43]: INVOICE
+                  - generic [ref=f4e45]:
+                    - generic [ref=f4e47]: Cash Flow
+                    - generic [ref=f4e50]: EXPENSE
+                - generic [ref=f4e51]:
+                  - generic [ref=f4e53]:
+                    - generic [ref=f4e55]: Invoice Currency
+                    - generic [ref=f4e58]: INR
+                  - generic [ref=f4e60]:
+                    - generic [ref=f4e62]: Trans Type
+                    - generic [ref=f4e65]: ACTUAL
+                - generic [ref=f4e68]:
+                  - generic [ref=f4e70]: Document Number
+                  - generic [ref=f4e73]: TBD
+              - generic [ref=f4e76]:
+                - heading "View Invoice Transaction Summary" [level=2] [ref=f4e78]
+                - generic [ref=f4e80]:
+                  - generic [ref=f4e82]:
+                    - search "Search bar of View Invoice Transaction Summary" [ref=f4e84]:
+                      - generic [ref=f4e86]:
+                        - button "Select columns to search" [ref=f4e88] [cursor=pointer]:
+                          - generic [ref=f4e89]: 
+                          - generic [ref=f4e90]: 
+                        - searchbox "Search Report" [ref=f4e92]
+                        - button "Go" [ref=f4e94] [cursor=pointer]:
+                          - generic [ref=f4e95]: Go
+                      - button "Actions" [ref=f4e98] [cursor=pointer]:
+                        - text: Actions
+                        - generic [ref=f4e99]: 
+                    - generic [ref=f4e100]:
+                      - region "Report settings of View Invoice Transaction Summary" [ref=f4e101]:
+                        - generic [ref=f4e102]:
+                          - heading [level=3] [ref=f4e103]: Report Settings
+                          - heading [level=3] [ref=f4e104]:
+                            - button [ref=f4e105] [cursor=pointer]:
+                              - generic [ref=f4e106]: 
+                        - generic [ref=f4e107]:
+                          - 'region "Control Break: Traffic Period" [ref=f4e108]':
+                            - generic [ref=f4e109]:
+                              - checkbox "Control Break" [checked] [ref=f4e110]
+                              - generic [ref=f4e111] [cursor=pointer]: 
+                            - generic [ref=f4e113]: 
+                            - button "Edit Control Break" [ref=f4e115] [cursor=pointer]:
+                              - generic [ref=f4e116]: Traffic Period
+                              - generic [ref=f4e117]: "Control Break: Traffic Period"
+                              - generic [ref=f4e118]: Edit Control Break
+                            - button "Remove Control Break" [ref=f4e120] [cursor=pointer]:
+                              - generic [ref=f4e121]: 
+                              - generic [ref=f4e122]: Remove Control Break
+                          - 'region "Control Break: Trans Type" [ref=f4e123]':
+                            - generic [ref=f4e124]:
+                              - checkbox "Control Break" [checked] [ref=f4e125]
+                              - generic [ref=f4e126] [cursor=pointer]: 
+                            - generic [ref=f4e128]: 
+                            - button "Edit Control Break" [ref=f4e130] [cursor=pointer]:
+                              - generic [ref=f4e131]: Trans Type
+                              - generic [ref=f4e132]: "Control Break: Trans Type"
+                              - generic [ref=f4e133]: Edit Control Break
+                            - button "Remove Control Break" [ref=f4e135] [cursor=pointer]:
+                              - generic [ref=f4e136]: 
+                              - generic [ref=f4e137]: Remove Control Break
+                          - 'region "Control Break: Cash Flow" [ref=f4e138]':
+                            - generic [ref=f4e139]:
+                              - checkbox "Control Break" [checked] [ref=f4e140]
+                              - generic [ref=f4e141] [cursor=pointer]: 
+                            - generic [ref=f4e143]: 
+                            - button "Edit Control Break" [ref=f4e145] [cursor=pointer]:
+                              - generic [ref=f4e146]: Cash Flow
+                              - generic [ref=f4e147]: "Control Break: Cash Flow"
+                              - generic [ref=f4e148]: Edit Control Break
+                            - button "Remove Control Break" [ref=f4e150] [cursor=pointer]:
+                              - generic [ref=f4e151]: 
+                              - generic [ref=f4e152]: Remove Control Break
+                        - text: 
+                      - region "Data view of View Invoice Transaction Summary" [ref=f4e153]:
+                        - table "View Invoice Transaction Summary, Report = Primary Default, View = Report" [ref=f4e155]:
+                          - rowgroup [ref=f4e156]:
+                            - 'row "Traffic Period: 2026/02/01 - 2026/02/28, Cash Flow: E" [ref=f4e157]':
+                              - 'columnheader "Traffic Period: 2026/02/01 - 2026/02/28, Cash Flow: E" [ref=f4e158]'
+                            - row "Billing Period Document Status Billed Product Currency Data Type Call Count Usage Tax Pct Amount Type Franchise Billing Operator" [ref=f4e159]:
+                              - columnheader "Billing Period" [ref=f4e160]:
+                                - link "Billing Period" [ref=f4e161] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Document Status" [ref=f4e162]:
+                                - link "Document Status" [ref=f4e163] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Billed Product" [ref=f4e164]:
+                                - link "Billed Product" [ref=f4e165] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Currency" [ref=f4e166]:
+                                - link "Currency" [ref=f4e167] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Data Type" [ref=f4e168]:
+                                - link "Data Type" [ref=f4e169] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Call Count" [ref=f4e170]:
+                                - link "Call Count" [ref=f4e171] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Usage" [ref=f4e172]:
+                                - link "Usage" [ref=f4e173] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Tax Pct" [ref=f4e174]:
+                                - link "Tax Pct" [ref=f4e175] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Amount" [ref=f4e176]:
+                                - link "Amount" [ref=f4e177] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Type" [ref=f4e178]:
+                                - link "Type" [ref=f4e179] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Franchise" [ref=f4e180]:
+                                - link "Franchise" [ref=f4e181] [cursor=pointer]:
+                                  - /url: "#"
+                              - columnheader "Billing Operator" [ref=f4e182]:
+                                - link "Billing Operator" [ref=f4e183] [cursor=pointer]:
+                                  - /url: "#"
+                            - row "2026/02/01 - 2026/02/28 OPEN CHSMS->Commercial SMS INR USAGE 17,120 17,120.00 0 1,198.40 OFFNET RJILDL AIRTKN" [ref=f4e184]:
+                              - cell "2026/02/01 - 2026/02/28" [ref=f4e185]:
+                                - generic [ref=f4e186]: 2026/02/01 - 2026/02/28
+                              - cell "OPEN" [ref=f4e187]
+                              - cell "CHSMS->Commercial SMS" [ref=f4e188]
+                              - cell "INR" [ref=f4e189]
+                              - cell "USAGE" [ref=f4e190]
+                              - cell "17,120" [ref=f4e191]
+                              - cell "17,120.00" [ref=f4e192]
+                              - cell "0" [ref=f4e193]
+                              - cell "1,198.40" [ref=f4e194]
+                              - cell "OFFNET" [ref=f4e195]
+                              - cell "RJILDL" [ref=f4e196]
+                              - cell "AIRTKN" [ref=f4e197]
+                            - row "2026/02/01 - 2026/02/28 OPEN EHSMS->Exempted SMS INR USAGE 9,358 9,358.00 0 187.16 OFFNET RJILDL AIRTKN" [ref=f4e198]:
+                              - cell "2026/02/01 - 2026/02/28" [ref=f4e199]:
+                                - generic [ref=f4e200]: 2026/02/01 - 2026/02/28
+                              - cell "OPEN" [ref=f4e201]
+                              - cell "EHSMS->Exempted SMS" [ref=f4e202]
+                              - cell "INR" [ref=f4e203]
+                              - cell "USAGE" [ref=f4e204]
+                              - cell "9,358" [ref=f4e205]
+                              - cell "9,358.00" [ref=f4e206]
+                              - cell "0" [ref=f4e207]
+                              - cell "187.16" [ref=f4e208]
+                              - cell "OFFNET" [ref=f4e209]
+                              - cell "RJILDL" [ref=f4e210]
+                              - cell "AIRTKN" [ref=f4e211]
+                            - row "2026/02/01 - 2026/02/28 OPEN GHSMS->Government SMS INR USAGE 3 3.00 0 0.21 OFFNET RJILDL AIRTKN" [ref=f4e212]:
+                              - cell "2026/02/01 - 2026/02/28" [ref=f4e213]:
+                                - generic [ref=f4e214]: 2026/02/01 - 2026/02/28
+                              - cell "OPEN" [ref=f4e215]
+                              - cell "GHSMS->Government SMS" [ref=f4e216]
+                              - cell "INR" [ref=f4e217]
+                              - cell "USAGE" [ref=f4e218]
+                              - cell "3" [ref=f4e219]
+                              - cell "3.00" [ref=f4e220]
+                              - cell "0" [ref=f4e221]
+                              - cell "0.21" [ref=f4e222]
+                              - cell "OFFNET" [ref=f4e223]
+                              - cell "RJILDL" [ref=f4e224]
+                              - cell "AIRTKN" [ref=f4e225]
+                            - row "2026/02/01 - 2026/02/28 OPEN SHSMS->Service SMS INR USAGE 149,722 149,722.00 0 10,480.54 OFFNET RJILDL AIRTKN" [ref=f4e226]:
+                              - cell "2026/02/01 - 2026/02/28" [ref=f4e227]:
+                                - generic [ref=f4e228]: 2026/02/01 - 2026/02/28
+                              - cell "OPEN" [ref=f4e229]
+                              - cell "SHSMS->Service SMS" [ref=f4e230]
+                              - cell "INR" [ref=f4e231]
+                              - cell "USAGE" [ref=f4e232]
+                              - cell "149,722" [ref=f4e233]
+                              - cell "149,722.00" [ref=f4e234]
+                              - cell "0" [ref=f4e235]
+                              - cell "10,480.54" [ref=f4e236]
+                              - cell "OFFNET" [ref=f4e237]
+                              - cell "RJILDL" [ref=f4e238]
+                              - cell "AIRTKN" [ref=f4e239]
+                            - row "2026/02/01 - 2026/02/28 OPEN THSMS->Transactional SMS INR USAGE 2,387 2,387.00 0 167.09 OFFNET RJILDL AIRTKN" [ref=f4e240]:
+                              - cell "2026/02/01 - 2026/02/28" [ref=f4e241]:
+                                - generic [ref=f4e242]: 2026/02/01 - 2026/02/28
+                              - cell "OPEN" [ref=f4e243]
+                              - cell "THSMS->Transactional SMS" [ref=f4e244]
+                              - cell "INR" [ref=f4e245]
+                              - cell "USAGE" [ref=f4e246]
+                              - cell "2,387" [ref=f4e247]
+                              - cell "2,387.00" [ref=f4e248]
+                              - cell "0" [ref=f4e249]
+                              - cell "167.09" [ref=f4e250]
+                              - cell "OFFNET" [ref=f4e251]
+                              - cell "RJILDL" [ref=f4e252]
+                              - cell "AIRTKN" [ref=f4e253]
+                            - 'row "Sum : 178,590 Sum : 178,590.00 Sum : 12,033.40" [ref=f4e254]':
+                              - cell [ref=f4e255]
+                              - cell [ref=f4e256]
+                              - cell [ref=f4e257]
+                              - cell [ref=f4e258]
+                              - cell [ref=f4e259]
+                              - 'cell "Sum : 178,590" [ref=f4e260]':
+                                - generic [ref=f4e261]: "Sum :"
+                                - text: 178,590
+                              - 'cell "Sum : 178,590.00" [ref=f4e262]':
+                                - generic [ref=f4e263]: "Sum :"
+                                - text: 178,590.00
+                              - cell [ref=f4e264]
+                              - 'cell "Sum : 12,033.40" [ref=f4e265]':
+                                - generic [ref=f4e266]: "Sum :"
+                                - text: 12,033.40
+                              - cell [ref=f4e267]
+                              - cell [ref=f4e268]
+                              - cell [ref=f4e269]
+                        - region "Pagination of View Invoice Transaction Summary" [ref=f4e270]:
+                          - list [ref=f4e271]:
+                            - listitem [ref=f4e272]: 1 - 5 of 5
+                  - text:        ...
