@@ -14,58 +14,25 @@ Automated functional testing for **FAM** (Financial Application Management)—an
 ## Workflow
 
 ```mermaid
-flowchart TB
-  subgraph Input
-    Excel[Functional_Test_Cases.xlsx]
-    Env[.env credentials]
-  end
+flowchart LR
+  Excel[Excel test cases]
+  Runner[test-runner]
+  Agent[test-agent]
+  FAM[FAM application]
+  Out[Scripts + screenshots]
+  Results[Excel results]
 
-  subgraph Orchestration["Cursor orchestration"]
-    CMD["/test-runner command"]
-    Read["_read_tests.py"]
-    Skip[Skip blank / invalid rows]
-    Loop{Next test row}
-    Runner[test-runner]
-    Agent[test-agent]
-  end
-
-  subgraph Execution["Step execution"]
-    Rules[test-rules.md]
-    Infer[Classify step: UI / SQL / REST / SOAP / SSH]
-    PW[Playwright MCP browser]
-    Libs[DBLibrary / SSHLibrary / requests]
-    Ctx[Shared context dict]
-  end
-
-  subgraph Output
-    Script["{testcase_name}.py"]
-    Shots["screenshots/{testcase_name}/"]
-    Results[Excel Result + Remark]
-    Summary[Run summary: passed / failed counts]
-  end
-
-  Excel --> CMD
-  CMD --> Runner
-  Runner --> Read
-  Read --> Skip
-  Skip --> Loop
-  Loop -->|one invocation, all steps| Agent
-  Env --> Agent
-  Rules --> Agent
-  Agent --> Infer
-  Infer -->|UI| PW
-  Infer -->|SQL / SSH / API| Libs
-  PW --> Ctx
-  Libs --> Ctx
-  Ctx --> Agent
-  Agent --> Script
-  Agent --> Shots
+  Excel --> Runner --> Agent --> FAM
+  Agent --> Out
   Agent --> Results
-  Loop -->|row complete| Loop
-  Loop -->|all rows done| Summary
 ```
 
-**Standalone scripts** (`FAM_TestCase_001.py`, `FAM_TestCase_002.py`) skip orchestration and run the same UI flow directly with Playwright.
+1. Define test cases and steps in **Excel**  
+2. Run **`/test-runner`** — reads the workbook and invokes **test-agent** once per test row  
+3. **test-agent** executes all steps against **FAM** (Playwright UI automation)  
+4. Outputs a **Python script**, **screenshots**, and writes **Result / Remark** back to Excel  
+
+Standalone scripts (`FAM_TestCase_001.py`, `FAM_TestCase_002.py`) run the same UI flow directly without the agent workflow.
 
 ## Prerequisites
 
@@ -126,17 +93,6 @@ Each script launches Chromium (non-headless by default), logs into FAM, navigate
 
 Both tests follow the same high-level flow:
 
-```mermaid
-flowchart LR
-  S1["1. Login\n(Keycloak SSO)"]
-  S2["2. Manage Documents\n(Financial Management)"]
-  S3["3–4. Filter grid\n(Transaction Type + Billing Period)"]
-  S4["5. View Document Summary\n(target agreement)"]
-  S5["6. Capture invoice\n(header + usage/tax sums)"]
-
-  S1 --> S2 --> S3 --> S4 --> S5
-```
-
 1. Login via Keycloak SSO  
 2. Open **Manage Documents**  
 3. Filter by transaction type and billing period  
@@ -152,31 +108,6 @@ For batch execution from a workbook, use the **test-runner** Cursor command with
 ```
 
 ### How it works
-
-```mermaid
-sequenceDiagram
-  actor User
-  participant Excel as Functional_Test_Cases.xlsx
-  participant Runner as test-runner
-  participant Read as _read_tests.py
-  participant Agent as test-agent
-  participant PW as Playwright MCP
-  participant Out as Artifacts
-
-  User->>Runner: /test-runner Functional_Test_Cases.xlsx
-  Runner->>Read: Parse workbook (headers, rows, skips)
-  Read-->>Runner: tests[] + file_checks
-  loop Each valid test row (sequential)
-    Runner->>Agent: testcase_name, row_number, all step_definitions
-    Agent->>PW: Execute steps 1..N in order
-    PW-->>Agent: Snapshots, extracted context
-    Agent->>Out: Write {testcase_name}.py
-    Agent->>Out: Save screenshots/{testcase_name}/
-    Agent->>Excel: Write Result + Remark (row_number)
-    Agent-->>Runner: Single verdict (PASSED / FAILED)
-  end
-  Runner-->>User: Summary (counts, failures, artifact paths)
-```
 
 - **test-runner** (`.cursor/commands/test-runner.md`) — Parses the workbook, skips invalid rows, invokes **test-agent** once per test with the full step block.  
 - **test-agent** (`.cursor/agents/test-agent.md`) — Executes every step in order (UI via Playwright MCP; SQL/SSH/REST/SOAP per rules), writes Excel results, and generates the Python script.  
