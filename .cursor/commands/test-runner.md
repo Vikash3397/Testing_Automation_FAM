@@ -21,43 +21,30 @@ Ensure the workspace allows creating and writing under `screenshots/` (per-test 
 
 ## Read Excel
 
-Load the workbook using Python (install `openpyxl` if missing: `pip install openpyxl`).
+**Always use the workspace helper** `_read_tests.py` — do **not** create ad-hoc Python scripts (e.g. `_parse_excel.py`, inline `python -c` blocks) to read the workbook.
 
-- **First sheet** is the test case sheet unless the file name or a sheet named `Test Cases` / `Tests` exists — prefer that sheet.
-- **Row 1** is the header row.
-- **Each data row** (row 2 onward) is one independent test case (one test name). Process test cases **sequentially**.
+```bash
+python _read_tests.py "<excel_path>"
+```
 
-Skip a row when:
+Parse the JSON printed to stdout:
 
-- The test name cell is empty, or
-- The step definition cell is empty, or
-- The entire row is blank
+| JSON key | Use |
+|----------|-----|
+| `file_checks` | Confirm `exists`, `readable`, `writable` before continuing |
+| `tests` | Each item: `row_number`, `testcase_name`, `step_definitions` |
+| `skipped` | Log each `{ row_number, reason }` |
+| `error` | Stop and report; include `headers` if column mapping failed |
 
-Log skipped rows with the row number and reason.
+If `file_checks.writable` is false, ask the user to close the file in Excel so results can be saved.
 
-### Column mapping
+`_read_tests.py` implements the rules below (sheet selection, column mapping, skips, `testcase_name` derivation). Do not duplicate that logic inline.
 
-Match headers case-insensitively (trim whitespace). Use the first matching column:
-
-| Purpose | Accepted header names |
-|---------|------------------------|
-| **Test name** | `Test Name`, `Test Case Name`, `TestCase`, `TestCase Name`, `Name` |
-| **Step definitions** | `Test Step`, `Test Steps`, `Step Definition`, `Step Definitions`, `Steps` |
-| **Result** (write-back) | `Result`, `Status`, `Test Result` |
-| **Remark** (write-back) | `Remark`, `Remarks`, `Comments`, `Failure Reason` |
-
-If required columns cannot be resolved, stop and list the headers found in row 1.
-
-The **Step definitions** column for a row typically contains **multiple steps** (Step 1, Step 2, …) in one cell or multiline block. Read the **entire cell contents** as one block — do not split into separate test-agent calls.
-
-### Derive `testcase_name`
-
-From the test name cell for that row:
-
-1. Trim whitespace.
-2. Replace characters invalid in filenames (`\ / : * ? " < > |`) with `_`.
-3. Collapse repeated underscores.
-4. Use as `testcase_name` (e.g. `TS_001_Order_creation`).
+- **First sheet** is the test case sheet unless a sheet named `Test Cases` / `Tests` exists — prefer that sheet.
+- **Row 1** is the header row; **each data row** (row 2 onward) is one independent test case. Process test cases **sequentially**.
+- Skip rows when test name or step definition is empty, or the entire row is blank.
+- **Step definitions** for a row are read as one verbatim block — do not split into separate test-agent calls.
+- `testcase_name` is derived from the test name (trim, replace invalid filename chars with `_`, collapse underscores).
 
 Do not reuse context or browser state between test names — each test case starts fresh.
 

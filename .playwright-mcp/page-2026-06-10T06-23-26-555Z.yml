@@ -5,7 +5,7 @@
     - banner [ref=e4]:
       - button "Expand / Collapse Navigation" [expanded] [ref=e6] [cursor=pointer]
       - link "DPM Financial Account Manager" [ref=e9] [cursor=pointer]:
-        - /url: "f?p=100:HOME:7410005540140:::::"
+        - /url: "f?p=100:HOME:9816009148779:::::"
         - img [ref=e10]
         - generic [ref=e11]: DPM Financial Account Manager
       - list [ref=e13]:
@@ -121,7 +121,7 @@
                     - generic [ref=e70]: (Value Required)
                   - radiogroup "Transaction Type (Value Required)" [ref=e73]:
                     - generic [ref=e74]:
-                      - radio "ACTUAL" [checked] [ref=e75]
+                      - radio "ACTUAL" [checked] [active] [ref=e75]
                       - generic [ref=e76] [cursor=pointer]: ACTUAL
                     - generic [ref=e77]:
                       - radio "ACCRUALS" [ref=e78]
@@ -160,14 +160,10 @@
                       - option [ref=e126]: 2026/03/01 - 2026/03/31
                       - option [ref=e127]: 2026/02/01 - 2026/02/28
                       - option [ref=e128]: 2026/01/01 - 2026/01/31
-                    - combobox [expanded] [ref=e131]:
+                    - combobox [ref=e131]:
                       - list [ref=e132]:
                         - listitem [ref=e133]:
-                          - textbox [active] [ref=e134]
-                      - tree [ref=e238]:
-                        - treeitem "2026/03/01 - 2026/03/31" [ref=e239] [cursor=pointer]
-                        - treeitem "2026/02/01 - 2026/02/28" [ref=e240] [cursor=pointer]
-                        - treeitem "2026/01/01 - 2026/01/31" [ref=e241] [cursor=pointer]
+                          - textbox [ref=e134]
                 - generic [ref=e136]:
                   - generic [ref=e138]: Agreement Type
                   - generic [ref=e140]:

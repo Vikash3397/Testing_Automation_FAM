@@ -100,7 +100,7 @@ def run():
     context = {}
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True, channel="msedge")
         ctx = browser.new_context(ignore_https_errors=True)
         page = ctx.new_page()
 
@@ -112,6 +112,11 @@ def run():
             page.get_by_role("textbox", name="Password").fill(PASSWORD)
             page.get_by_role("button", name="Sign In").click()
             page.wait_for_load_state("networkidle")
+            if page.get_by_text("Invalid username or password.").count() > 0:
+                shot(page, "step1_login_failed.png")
+                raise RuntimeError(
+                    f"Keycloak login failed for user {USERNAME}: Invalid username or password."
+                )
         expect(page).to_have_title("Home")
         shot(page, "step1_login_home.png")
 

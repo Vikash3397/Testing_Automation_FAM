@@ -1,0 +1,200 @@
+- generic [ref=e1]:
+  - link "Skip to Main Content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - banner [ref=e4]:
+      - button "Expand / Collapse Navigation" [expanded] [ref=e6] [cursor=pointer]
+      - link "DPM Financial Account Manager" [ref=e9] [cursor=pointer]:
+        - /url: "f?p=100:HOME:9816009148779:::::"
+        - img [ref=e10]
+        - generic [ref=e11]: DPM Financial Account Manager
+      - list [ref=e13]:
+        - listitem [ref=e14]:
+          - link " Contact" [ref=e15] [cursor=pointer]:
+            - /url: https://www.csgi.com/contact/
+            - generic [ref=e16]: 
+            - generic [ref=e17]: Contact
+        - listitem [ref=e18]:
+          - link " About" [ref=e19] [cursor=pointer]:
+            - /url: "f?p=105:1001::::::"
+            - generic [ref=e20]: 
+            - generic [ref=e21]: About
+        - listitem [ref=e22]:
+          - button "ADMIN " [ref=e23] [cursor=pointer]:
+            - generic [ref=e24]: ADMIN
+            - generic [ref=e25]: 
+  - generic [ref=e26]:
+    - navigation "CSG Financial Account Manager" [ref=e181]:
+      - tree "CSG Financial Account Manager" [ref=e182]:
+        - group [ref=e183]:
+          - generic [ref=e184] [cursor=pointer]: 
+          - treeitem "Home" [level=1] [ref=e185] [cursor=pointer]
+          - generic [ref=e186] [cursor=pointer]: 
+          - generic [ref=e187] [cursor=pointer]: 
+          - treeitem "Administration" [level=1] [ref=e188] [cursor=pointer]
+          - text:           
+          - generic [ref=e189] [cursor=pointer]: 
+          - generic [ref=e190] [cursor=pointer]: 
+          - treeitem "Implementation" [level=1] [ref=e191] [cursor=pointer]
+          - text:        
+          - generic [ref=e192] [cursor=pointer]: 
+          - generic [ref=e193] [cursor=pointer]: 
+          - treeitem "Reference Data" [level=1] [ref=e194] [cursor=pointer]
+          - text:                
+          - generic [ref=e195] [cursor=pointer]: 
+          - generic [ref=e196] [cursor=pointer]: 
+          - treeitem "Dispute Management" [level=1] [ref=e197] [cursor=pointer]
+          - text:  
+          - generic [ref=e198] [cursor=pointer]: 
+          - generic [ref=e199] [cursor=pointer]: 
+          - treeitem "EDR Matching" [level=1] [ref=e200] [cursor=pointer]
+          - text:        
+          - generic [ref=e201] [cursor=pointer]: 
+          - generic [ref=e202] [cursor=pointer]: 
+          - treeitem "Financial Management" [expanded] [level=1] [ref=e203] [cursor=pointer]:
+            - text: Financial Management
+            - group [ref=e204]:
+              - generic [ref=e205]: 
+              - treeitem "Manage Documents" [level=2] [selected] [ref=e206]
+              - generic [ref=e207]: 
+              - treeitem "Load Documents" [level=2] [ref=e208]
+              - generic [ref=e209]: 
+              - treeitem "Adjustments" [level=2] [ref=e210]
+              - generic [ref=e211]: 
+              - treeitem "Payments" [level=2] [ref=e212]
+              - generic [ref=e213]: 
+              - treeitem "Netting" [level=2] [ref=e214]
+              - generic [ref=e215]: 
+              - treeitem "Digital Signature" [level=2] [ref=e216]
+              - generic [ref=e217]: 
+              - treeitem "QR Code Generation" [level=2] [ref=e218]
+          - generic [ref=e219] [cursor=pointer]: 
+          - generic [ref=e220] [cursor=pointer]: 
+          - treeitem "ERP Management" [level=1] [ref=e221] [cursor=pointer]
+          - generic [ref=e222] [cursor=pointer]: 
+          - generic [ref=e223] [cursor=pointer]: 
+          - treeitem "Reports" [level=1] [ref=e224] [cursor=pointer]
+          - generic [ref=e225] [cursor=pointer]: 
+          - generic [ref=e226] [cursor=pointer]: 
+          - treeitem "Audit" [level=1] [ref=e227] [cursor=pointer]
+          - generic [ref=e228] [cursor=pointer]: 
+          - treeitem "About" [level=1] [ref=e229] [cursor=pointer]
+    - generic [ref=e27]:
+      - generic [ref=e30]:
+        - generic [ref=e32]: 
+        - generic [ref=e33]:
+          - heading "Manage Documents" [level=1] [ref=e34]
+          - list [ref=e35]:
+            - listitem [ref=e36]:
+              - heading "Manage Document Transactions" [level=1] [ref=e37]
+              - text: \
+        - generic [ref=e39]:
+          - button "Create Notes" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]: 
+            - text: Create Notes 
+          - button "Load Data" [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 
+            - text: Load Data 
+          - button "Manage ERP" [ref=e44] [cursor=pointer]:
+            - generic [ref=e45]: 
+            - text: Manage ERP 
+          - button "Approve Document" [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]: 
+            - text: Approve Document 
+          - button "Cancel Document" [ref=e48] [cursor=pointer]:
+            - generic [ref=e49]: 
+            - text: Cancel Document 
+          - button "Send Email" [ref=e50] [cursor=pointer]:
+            - generic [ref=e51]: 
+            - text: Send Email 
+          - button "Download Documents" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: 
+            - text: Download Documents 
+      - generic [ref=e54]:
+        - main [ref=e56]:
+          - generic [ref=e58]:
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e67]:
+                  - generic [ref=e69]:
+                    - text: Transaction Type
+                    - generic [ref=e70]: (Value Required)
+                  - radiogroup "Transaction Type (Value Required)" [ref=e73]:
+                    - generic [ref=e74]:
+                      - radio "ACTUAL" [checked] [ref=e75]
+                      - generic [ref=e76] [cursor=pointer]: ACTUAL
+                    - generic [ref=e77]:
+                      - radio "ACCRUALS" [ref=e78]
+                      - generic [ref=e79] [cursor=pointer]: ACCRUALS
+                - generic [ref=e81]:
+                  - generic [ref=e83]: Franchise
+                  - generic [ref=e85]:
+                    - combobox [ref=e86]
+                    - combobox "ALL" [ref=e89] [cursor=pointer]:
+                      - generic [ref=e90]: ALL
+              - generic [ref=e91]:
+                - generic [ref=e93]:
+                  - generic [ref=e95]:
+                    - text: Statement Direction
+                    - generic [ref=e96]: (Value Required)
+                  - radiogroup "Statement Direction (Value Required)" [ref=e99]:
+                    - generic [ref=e100]:
+                      - radio "RECEIVE" [ref=e101]
+                      - generic [ref=e102] [cursor=pointer]: RECEIVE
+                    - generic [ref=e103]:
+                      - radio "SEND" [checked] [ref=e104]
+                      - generic [ref=e105] [cursor=pointer]: SEND
+                - generic [ref=e107]:
+                  - generic [ref=e109]: Organisation
+                  - generic [ref=e111]:
+                    - combobox [ref=e112]
+                    - combobox "ALL" [ref=e115] [cursor=pointer]:
+                      - generic [ref=e116]: ALL
+              - generic [ref=e117]:
+                - generic [ref=e119]:
+                  - generic [ref=e121]:
+                    - text: Billing Period
+                    - generic [ref=e122]: (Value Required)
+                  - generic [ref=e124]:
+                    - listbox [ref=e125]:
+                      - option [ref=e126]: 2026/03/01 - 2026/03/31
+                      - option [ref=e127]: 2026/02/01 - 2026/02/28
+                      - option [ref=e128]: 2026/01/01 - 2026/01/31
+                    - combobox [expanded] [ref=e131]:
+                      - list [ref=e132]:
+                        - listitem [ref=e133]:
+                          - textbox [active] [ref=e134]
+                      - tree [ref=e238]:
+                        - treeitem "2026/03/01 - 2026/03/31" [ref=e239] [cursor=pointer]
+                        - treeitem "2026/02/01 - 2026/02/28" [ref=e240] [cursor=pointer]
+                        - treeitem "2026/01/01 - 2026/01/31" [ref=e241] [cursor=pointer]
+                - generic [ref=e136]:
+                  - generic [ref=e138]: Agreement Type
+                  - generic [ref=e140]:
+                    - combobox [ref=e141]
+                    - combobox "ALL" [ref=e144] [cursor=pointer]:
+                      - generic [ref=e145]: ALL
+              - generic [ref=e149]:
+                - generic [ref=e151]: Agreement
+                - generic [ref=e153]:
+                  - listbox [ref=e154]:
+                    - option [ref=e230]: RJILAP-AIRTDL SMS Rev
+                    - option [ref=e231]: RJILAP_AIRTAP_ACTUAL_OFFNET_R
+                    - option [ref=e232]: RJILDL_AIRTHR_Exp
+                    - option [ref=e233]: RJILDL_AIRTKL_ACCURAL_OFF_SO
+                    - option [ref=e234]: RJILDL_AIRTKN_ACTUAL_OFF_E_SO
+                    - option [ref=e235]: RJILKO_AIRTTN_Exp
+                    - option [ref=e236]: RJILPB_RJILKO_ACTUAL_ONNET_R
+                    - option [ref=e237]: RJILUW-RJILKO_ONNET_REVENUE
+                  - combobox [ref=e165]:
+                    - list [ref=e166]:
+                      - listitem [ref=e167]:
+                        - textbox "ALL" [ref=e168]
+            - generic:
+              - generic:                
+            - generic [ref=e173]: "* Please select the Billing Period to display data."
+        - contentinfo [ref=e174]:
+          - link "" [ref=e178] [cursor=pointer]:
+            - /url: "#top"
+            - generic [ref=e179]: 
+  - text:        ...
