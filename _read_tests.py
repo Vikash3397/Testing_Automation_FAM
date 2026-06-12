@@ -33,6 +33,7 @@ STEP_COLS = [
 ]
 RESULT_COLS = ["result", "results", "status", "test result"]
 REMARK_COLS = ["remark", "remarks", "comments", "failure reason"]
+INPUT_COLS = ["input values", "input value", "inputs", "input data", "test data"]
 
 
 def find_col(headers: dict[str, int], candidates: list[str]) -> int | None:
@@ -50,6 +51,20 @@ def derive_name(name: str) -> str:
     name = str(name).strip()
     name = re.sub(r'[\\/:*?"<>|]', "_", name)
     return re.sub(r"_+", "_", name)
+
+
+def parse_inputs(raw) -> dict[str, str]:
+    inputs: dict[str, str] = {}
+    if not raw:
+        return inputs
+    for line in str(raw).splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = re.split(r"\s+-\s+", line, maxsplit=1)
+        if len(parts) == 2 and parts[0].strip():
+            inputs[parts[0].strip()] = parts[1].strip()
+    return inputs
 
 
 def read_tests(excel_path: str) -> dict:
@@ -80,6 +95,7 @@ def read_tests(excel_path: str) -> dict:
     step_col = find_col(headers, STEP_COLS)
     result_col = find_col(headers, RESULT_COLS)
     remark_col = find_col(headers, REMARK_COLS)
+    input_col = find_col(headers, INPUT_COLS)
 
     if not test_col or not step_col:
         return {
@@ -108,6 +124,7 @@ def read_tests(excel_path: str) -> dict:
 
         test_name = row[test_col - 1] if test_col <= len(row) else None
         steps = row[step_col - 1] if step_col <= len(row) else None
+        raw_inputs = row[input_col - 1] if input_col and input_col <= len(row) else None
 
         if not test_name or str(test_name).strip() == "":
             skipped.append({"row_number": row_idx, "reason": "test name empty"})
@@ -122,6 +139,8 @@ def read_tests(excel_path: str) -> dict:
                 "testcase_name": derive_name(test_name),
                 "test_name": str(test_name).strip(),
                 "step_definitions": str(steps).strip(),
+                "input_values": str(raw_inputs).strip() if raw_inputs else "",
+                "inputs": parse_inputs(raw_inputs),
             }
         )
 
@@ -136,6 +155,7 @@ def read_tests(excel_path: str) -> dict:
             "steps": step_col,
             "result": result_col,
             "remark": remark_col,
+            "input": input_col,
         },
         "file_checks": file_checks,
         "skipped": skipped,

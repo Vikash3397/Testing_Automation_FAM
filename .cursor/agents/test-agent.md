@@ -32,6 +32,11 @@ step_definitions (ALL steps for this test case — run sequentially in one sessi
 {step_definitions}
 ---
 
+input_values (fill the `{placeholder}` tokens in the steps; case-insensitive key match):
+---
+{input_values}
+---
+
 Follow .cursor/rules/test-rules.md. Execute every step before returning. Create `screenshots/{testcase_name}/` before the first screenshot. Write Result and Remark to `excel_path` for this test name, then return a single structured Verdict.
 ```
 
@@ -41,6 +46,7 @@ Extract and use:
 |-------|----------|--------|
 | `testcase_name` | Yes | Prompt field or Excel-derived safe filename (e.g. `TS_001_Order_creation`) |
 | `step_definitions` | Yes | **All steps** for this test case — verbatim text between the `---` delimiters |
+| `input_values` | No | Raw `Input Values` cell text — `key - value` lines used to resolve `{placeholder}` tokens in the steps (see test-rules Input Value Substitution) |
 | `excel_path` | Yes | Path to the source Excel workbook (passed by test-runner) |
 | `row_number` | Yes* | Excel row for this test name (*required for write-back; log in execution output) |
 | `db_configs` | No | Passed by test-runner or workspace config |
@@ -125,7 +131,7 @@ Use the **first sheet** unless a sheet named `Test Cases` or `Tests` exists — 
 
 1. Target row: `row_number` when provided; otherwise find the first data row whose **Test name** cell matches the test name (compare trimmed text; filename-safe `testcase_name` is a fallback only if the original name is unavailable).
 2. Set **Result** → `PASSED` or `FAILED`.
-3. Set **Remark** → empty or brief success note on pass; one-line failure summary on fail.
+3. Set **Remark** → brief success note on pass; one-line failure summary on fail.
 4. Preserve all other columns and formatting where possible.
 5. Call `workbook.save(excel_path)` immediately after updating this row.
 6. If Result/Remark columns are missing from row 1, log the headers found and skip write-back — still return the verdict.

@@ -32,7 +32,7 @@ Parse the JSON printed to stdout:
 | JSON key | Use |
 |----------|-----|
 | `file_checks` | Confirm `exists`, `readable`, `writable` before continuing |
-| `tests` | Each item: `row_number`, `testcase_name`, `step_definitions` |
+| `tests` | Each item: `row_number`, `testcase_name`, `step_definitions`, `input_values` (raw cell text), `inputs` (parsed `key -> value` dict) |
 | `skipped` | Log each `{ row_number, reason }` |
 | `error` | Stop and report; include `headers` if column mapping failed |
 
@@ -58,6 +58,7 @@ For **each** valid data row (each test name), invoke **test-agent exactly once**
 | `row_number` | Excel row number for this test name (required for write-back) |
 | `excel_path` | Path to the source Excel workbook from `$ARGUMENTS` |
 | `step_definitions` | **Complete** step block for this test — **all steps** from the step column, verbatim (line breaks, numbering, blank lines, comments preserved) |
+| `input_values` | Raw `Input Values` cell text for this test — verbatim `key - value` lines (empty string if the column is absent) |
 | `db_configs` | Optional — from workspace env/config if available |
 | `ssh_configs` | Optional — from workspace env/config if available |
 
@@ -84,6 +85,11 @@ excel_path: {excel_path}
 step_definitions (ALL steps for this test case — run sequentially in one session):
 ---
 {step_definitions}
+---
+
+input_values (substitute these into the `{placeholder}` tokens in the steps; case-insensitive key match; do not hardcode URLs/credentials/filters when an input is provided):
+---
+{input_values}
 ---
 
 Follow .cursor/rules/test-rules.md. Execute every step before returning. Create `screenshots/{testcase_name}/` before the first screenshot. Write Result and Remark to excel_path for this test name (row {row_number}), then return a single structured Verdict.

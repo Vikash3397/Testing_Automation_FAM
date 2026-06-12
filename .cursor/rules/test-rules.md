@@ -69,6 +69,7 @@ When the **inferred** type of the current step is **UI** and the **previous** st
 |--------|----------|---------|
 | `testcase_name` | Yes | Output script name, e.g. `TS_001_Order_creation.py` |
 | `step_definitions` | Yes | **Complete** step block for one test name — all steps (Step 1 … Step N) in one text block |
+| `input_values` | No | Raw `Input Values` cell text — `key - value` lines that fill the `{placeholder}` tokens in the steps |
 | `excel_path` | Yes | Source Excel workbook — test-agent writes **Result** and **Remark** here |
 | `row_number` | Yes | Excel row for this test name (used for write-back) |
 | `db_configs` | No | DB env mappings, e.g. `sbx1_oracle: user/pass@host:port/service` |
@@ -89,6 +90,14 @@ Do not read step definitions from Excel in test-agent — test-runner supplies `
 - Read from `context` in later steps within the **same** test case — **never** hardcode values from prior steps
 - Example: API returns `order_id` → `context["order_id"]` → UI step fills order_id field from context
 - Do not carry `context` to a different test name — test-runner starts a fresh test-agent call per row
+
+### Input Value Substitution
+
+- Steps may contain `{placeholder}` tokens (e.g. `{Application URL}`, `{Username}`, `{Transaction Type}`, `{agreement}`)
+- Resolve each token from `input_values` by **case-insensitive** key match (`{agreement}` ↔ `Agreement`); parse `input_values` into `key - value` pairs, splitting each line on the first ` - ` only (values may contain `-`, `:`, `//`)
+- Seed resolved values into `context` at the start of the test case and read them from `context` in each step
+- **Never hardcode** URLs, credentials, or filter values when a matching input is provided — use the input
+- If a token has no matching input, log it and proceed with the step's stated value (do not invent one)
 
 ### Execution Order
 

@@ -123,10 +123,13 @@ Place test definitions in `Functional_Test_Cases.xlsx` (or pass another workbook
 |--------------|------------------------|
 | Test name | `Test Name`, `Test Case Name`, `TestCase`, `TestCase Name`, `Name` |
 | Steps | `Test Step`, `Test Steps`, `Step Definition`, `Step Definitions`, `Steps` |
+| Input values (optional) | `Input Values`, `Input Value`, `Inputs`, `Input Data`, `Test Data` |
 | Result (output) | `Result`, `Status`, `Test Result` |
 | Remark (output) | `Remark`, `Remarks`, `Comments`, `Failure Reason` |
 
 **Row 2+** — one test per row. The **Steps** cell should contain the complete step list (Step 1 … Step N) in a single cell or multiline block.
+
+The optional **Input Values** cell holds `key - value` lines (one per line) that populate the `{placeholder}` tokens in the steps (e.g. `Username - ADMIN` fills `{Username}`); matching is case-insensitive and each line is split on the first ` - ` only, so values may contain `-`, `:`, or `//`.
 
 Before running, ensure the Excel file is **writable** and **not open** in Excel.
 

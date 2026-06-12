@@ -4,10 +4,9 @@ FAM_TestCase_002 - Self-contained, re-runnable Playwright test.
 Flow:
   Step 1: Login to FAM (Keycloak SSO) with ADMIN / admin123
   Step 2: Navigate Financial Management -> Manage Documents
-  Step 3: Filter documents by Transaction Type and Billing Period
-  Step 4: Select Transaction Type = ACTUAL, Billing Period = 2026/02/01 - 2026/02/28
-  Step 5: Open "View Document Summary" for agreement RJILDL_AIRTKN_ACTUAL_OFF_E_SO
-  Step 6: Capture the invoice details from the summary dialog
+  Step 3: Filter documents by Transaction Type (Actual) and Billing Period (01-Feb-2026 to 28-Feb-2026)
+  Step 4: Select agreement RJILDL_AIRTKN_ACTUAL_OFF_E_SO and open View Document Summary
+  Step 5: Capture the invoice details from the summary dialog
 
 Run:
   pip install playwright
@@ -22,7 +21,8 @@ BASE_URL = "https://sg01dvxicta0003.csgidev.com:19100/ords/f?p=100:1:31350603567
 USERNAME = "ADMIN"
 PASSWORD = "admin123"
 AGREEMENT = "RJILDL_AIRTKN_ACTUAL_OFF_E_SO"
-BILLING_PERIOD = "2026/02/01 - 2026/02/28"
+TRANSACTION_TYPE = "ACTUAL"  # UI label for input "Actual"
+BILLING_PERIOD = "2026/02/01 - 2026/02/28"  # APEX tree format for input "01-Feb-2026 to 28-Feb-2026"
 
 SHOT_DIR = os.path.join("screenshots", "FAM_TestCase_002")
 os.makedirs(SHOT_DIR, exist_ok=True)
@@ -48,21 +48,24 @@ def capture_invoice_from_dialog(page, context):
     if frame is None:
         frame = page.frames[-1]
 
+    body_text = frame.locator("body").inner_text()
+
     def field(label):
         try:
-            loc = frame.get_by_text(label, exact=True).first
-            return loc.evaluate(
-                """(el, lbl) => {
-                    const sibling = el.nextElementSibling;
-                    if (sibling && sibling.textContent.trim()) return sibling.textContent.trim();
-                    const parent = el.parentElement;
-                    if (parent) return parent.textContent.replace(lbl, '').trim();
-                    return null;
-                }""",
-                label,
-            )
+            lines = [ln.strip() for ln in body_text.split("\n") if ln.strip()]
+            for i, line in enumerate(lines):
+                if line == label and i + 1 < len(lines):
+                    return lines[i + 1]
+            row = frame.locator("tr").filter(has_text=label).first
+            if row.count() > 0:
+                cells = row.locator("td")
+                if cells.count() >= 2:
+                    val = cells.nth(1).inner_text().strip()
+                    if val and val != label:
+                        return val
         except Exception:
-            return None
+            pass
+        return None
 
     labels = [
         "Transaction ID",
@@ -76,21 +79,18 @@ def capture_invoice_from_dialog(page, context):
     ]
     invoice = {lbl: field(lbl) for lbl in labels}
 
-    try:
-        usage_sum = frame.locator("td").filter(has_text="Sum : 178,590").first
-        if usage_sum.count() == 0:
-            usage_sum = frame.get_by_text("178,590", exact=True).first
-        invoice["Usage Sum"] = usage_sum.inner_text().replace("Sum : ", "").strip()
-    except Exception:
-        invoice["Usage Sum"] = None
-
-    try:
-        tax_cell = frame.locator("td").filter(has_text="Sum : 12,033.40").first
-        if tax_cell.count() == 0:
-            tax_cell = frame.get_by_text("12,033.40", exact=True).first
-        invoice["Tax/Amount Sum"] = tax_cell.inner_text().replace("Sum : ", "").strip()
-    except Exception:
-        invoice["Tax/Amount Sum"] = None
+    for sum_label, key in [
+        ("178,590", "Usage Sum"),
+        ("178,590.00", "Amount Sum"),
+        ("12,033.40", "Tax/Amount Sum"),
+    ]:
+        try:
+            cell = frame.locator("td").filter(has_text=f"Sum : {sum_label}").first
+            if cell.count() == 0:
+                cell = frame.get_by_text(sum_label, exact=True).first
+            invoice[key] = cell.inner_text().replace("Sum : ", "").replace("Sum :\n", "").strip()
+        except Exception:
+            invoice[key] = None
 
     context["invoice"] = invoice
     return invoice
@@ -129,7 +129,7 @@ def run():
         shot(page, "step2_manage_documents.png")
 
         # ---- Step 3 + 4: Filter by Transaction Type = ACTUAL and Billing Period ----
-        page.get_by_text("ACTUAL", exact=True).click()
+        page.get_by_text(TRANSACTION_TYPE, exact=True).click()
         page.wait_for_load_state("networkidle")
         page.locator("#P601_BP_NAME_CONTAINER").get_by_role("textbox").click()
         page.get_by_role("treeitem", name=BILLING_PERIOD).click()
