@@ -70,6 +70,13 @@ Copy or edit `.env` in the project root. Typical variables:
 | `APEX_PASS` | Password |
 | `APEX_LOGIN_URL` | Application entry URL |
 | `APEX_BASE_URL` | Base APEX URL (if used by tests) |
+| `DB_CONNECTION` | SQLcl named connection used by test-runner/test-agent for SQL MCP `connect` |
+| `ORACLE_DB_USER` | DB metadata/traceability (not sent to MCP `connect`) |
+| `ORACLE_DB_PASSWORD` | DB metadata/traceability (not sent to MCP `connect`) |
+| `ORACLE_DB_HOST` | DB metadata/traceability (not sent to MCP `connect`) |
+| `ORACLE_DB_PORT` | DB metadata/traceability (not sent to MCP `connect`) |
+| `ORACLE_DB_SERVICE` | DB metadata/traceability (not sent to MCP `connect`) |
+| `ORACLE_DB_CONNECT_STRING` | DB metadata/traceability (not sent to MCP `connect`) |
 
 Do not commit real credentials to source control.
 
@@ -110,8 +117,10 @@ For batch execution from a workbook, use the **test-runner** Cursor command with
 ### How it works
 
 - **test-runner** (`.cursor/commands/test-runner.md`) — Parses the workbook, skips invalid rows, invokes **test-agent** once per test with the full step block.  
-- **test-agent** (`.cursor/agents/test-agent.md`) — Executes every step in order (UI via Playwright MCP; SQL/SSH/REST/SOAP per rules), writes Excel results, and generates the Python script.  
-- **test-rules** (`.cursor/rules/test-rules.md`) — Step inference, context passing, UI/DB/API protocols, error handling, and output conventions.
+- **test-agent** (`.cursor/agents/test-agent.md`) — Executes every step in order (UI via Playwright MCP; SQL via `user-oracle-sqlcl` MCP), writes Excel results, and generates the Python script.  
+- **test-rules** (`.cursor/rules/test-rules.md`) — Step inference, context passing, UI/SQL protocols, error handling, and output conventions.
+
+For SQL steps, `test-runner` reads DB-related env values for validation, but passes only `DB_CONNECTION` to `test-agent` as SQLCL MCP `connection_name`.
 
 ### Excel format
 
@@ -158,8 +167,7 @@ FAM_Testing/
 ├── requirements.txt              # Python dependencies
 ├── screenshots/                  # Per-test screenshots (created at runtime)
 ├── Functional_Test_Cases.xlsx    # Test case workbook (add your file)
-├── requests/                     # REST/SOAP payload templates (optional)
-└── Keywords/                     # DBLibrary.py, SSHLibrary.py (optional, for SQL/SSH steps)
+└── DBLibrary.py, SSHLibrary.py   # Legacy libraries (deprecated for agent flow)
 ```
 
 Generated artifacts (not always in source control):
@@ -185,10 +193,9 @@ When using test-agent, each step is classified from its instruction text:
 | Type | Typical actions |
 |------|-----------------|
 | **UI** | Login, navigation, clicks, form fills, on-screen verification |
-| **REST** | HTTP calls with JSON payloads under `requests/` |
-| **SQL** | Oracle queries via `Keywords/DBLibrary.py` |
-| **SOAP** | XML/SOAP via `zeep` or raw requests |
-| **BACKEND** | Remote commands via `Keywords/SSHLibrary.py` |
+| **SQL** | Oracle queries via `user-oracle-sqlcl` MCP (`connect` → `run-sql` → `disconnect`) |
+
+REST, SOAP, and BACKEND/SSH step flows are not supported in the current agent framework. Rewrite those steps as UI/SQL flows before execution.
 
 Values extracted in earlier steps are stored in a shared `context` dict and must not be hardcoded in later steps.
 
@@ -198,9 +205,10 @@ Values extracted in earlier steps are stored in a shared `context` dict and must
 |-------|-------------|
 | Excel save fails | Close the workbook in Excel; confirm the path is writable. |
 | Login or SSO errors | Verify `.env` credentials and `APEX_LOGIN_URL`; confirm VPN/network access. |
+| SQL step cannot connect | Verify `.env` has `DB_CONNECTION` and that the same case-sensitive named connection exists in SQLcl. |
 | HTTPS / certificate warnings | Standalone scripts use `ignore_https_errors=True` in Playwright context. |
 | Element not found | Re-run with UI steps; agents use fresh `browser_snapshot` per test-rules. |
-| Missing `Keywords/` or `requests/` | Add libraries/payloads only if your Excel steps require SQL, SSH, or API calls. |
+| Step uses REST/SOAP/BACKEND wording | Rewrite that step to a UI/SQL-only flow before running test-runner. |
 
 ## Security notes
 

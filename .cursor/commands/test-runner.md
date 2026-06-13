@@ -19,6 +19,30 @@ Verify the file exists, is readable, and is **writable** before continuing. If t
 
 Ensure the workspace allows creating and writing under `screenshots/` (per-test subfolders `screenshots/{testcase_name}/` are created by **test-agent** before the first screenshot).
 
+## Read DB connection from .env
+
+Before invoking test-agent, read `.env` from the workspace root and extract:
+
+- `DB_CONNECTION` (required for SQLCL MCP connection routing)
+- `ORACLE_DB_USER`
+- `ORACLE_DB_PASSWORD`
+- `ORACLE_DB_HOST`
+- `ORACLE_DB_PORT`
+- `ORACLE_DB_SERVICE`
+- `ORACLE_DB_CONNECT_STRING`
+
+If `DB_CONNECTION` is missing or blank, stop and report:
+
+> Missing DB_CONNECTION in .env. Add a SQLcl named connection value (for example, DB_CONNECTION=INTDEVFAM).
+
+If any of the `ORACLE_DB_*` values above are missing, stop and report which keys are missing.
+
+Important:
+
+- `ORACLE_DB_*` values are used for environment completeness/traceability in this framework.
+- Oracle SQLCL MCP `connect` uses only the SQLcl named connection.
+- Pass only `DB_CONNECTION` to test-agent as `db_connection_name`, and use that value as MCP `connection_name`.
+
 ## Read Excel
 
 **Always use the workspace helper** `_read_tests.py` — do **not** create ad-hoc Python scripts (e.g. `_parse_excel.py`, inline `python -c` blocks) to read the workbook.
@@ -59,8 +83,7 @@ For **each** valid data row (each test name), invoke **test-agent exactly once**
 | `excel_path` | Path to the source Excel workbook from `$ARGUMENTS` |
 | `step_definitions` | **Complete** step block for this test — **all steps** from the step column, verbatim (line breaks, numbering, blank lines, comments preserved) |
 | `input_values` | Raw `Input Values` cell text for this test — verbatim `key - value` lines (empty string if the column is absent) |
-| `db_configs` | Optional — from workspace env/config if available |
-| `ssh_configs` | Optional — from workspace env/config if available |
+| `db_connection_name` | Required — value from `.env` key `DB_CONNECTION`; pass through unchanged |
 
 **Do not:**
 
@@ -81,6 +104,7 @@ Execute this entire test case in one run — all steps below, in order.
 testcase_name: {testcase_name}
 row_number: {row_number}
 excel_path: {excel_path}
+db_connection_name: {db_connection_name}
 
 step_definitions (ALL steps for this test case — run sequentially in one session):
 ---
@@ -92,7 +116,7 @@ input_values (substitute these into the `{placeholder}` tokens in the steps; cas
 {input_values}
 ---
 
-Follow .cursor/rules/test-rules.md. Execute every step before returning. Create `screenshots/{testcase_name}/` before the first screenshot. Write Result and Remark to excel_path for this test name (row {row_number}), then return a single structured Verdict.
+Follow .cursor/rules/test-rules.md. Execute every step before returning. Only UI and SQL flows are supported (SQL must use oracle-sqlcl MCP). Use db_connection_name as the default SQLCL connection_name for MCP connect. Create `screenshots/{testcase_name}/` before the first screenshot. Write Result and Remark to excel_path for this test name (row {row_number}), then return a single structured Verdict.
 ```
 
 ## Collect results (test-agent writes Excel)

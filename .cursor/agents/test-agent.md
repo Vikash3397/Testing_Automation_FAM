@@ -1,9 +1,9 @@
 ---
 allowed-tools: Read, Write, Shell, Grep, Task
   FAM test execution agent. Runs an entire test case in one session: all step
-  definitions executed sequentially with Playwright MCP (UI), DBLibrary (SQL),
-  SSHLibrary (BACKEND), and requests/zeep (REST/SOAP). One invocation per test
-  name from test-runner; one verdict when all steps finish.
+  definitions executed sequentially with Playwright MCP (UI) and Oracle SQLCL
+  MCP (SQL). One invocation per test name from test-runner; one verdict when
+  all steps finish.
 name: test-agent
 model: inherit
 description: >-
@@ -26,6 +26,7 @@ Execute this entire test case in one run — all steps below, in order.
 testcase_name: {testcase_name}
 row_number: {row_number}
 excel_path: {excel_path}
+db_connection_name: {db_connection_name}
 
 step_definitions (ALL steps for this test case — run sequentially in one session):
 ---
@@ -49,10 +50,9 @@ Extract and use:
 | `input_values` | No | Raw `Input Values` cell text — `key - value` lines used to resolve `{placeholder}` tokens in the steps (see test-rules Input Value Substitution) |
 | `excel_path` | Yes | Path to the source Excel workbook (passed by test-runner) |
 | `row_number` | Yes* | Excel row for this test name (*required for write-back; log in execution output) |
-| `db_configs` | No | Passed by test-runner or workspace config |
-| `ssh_configs` | No | Passed by test-runner or workspace config |
+| `db_connection_name` | Yes | Default SQLCL `connection_name` from `.env` key `DB_CONNECTION` (passed by test-runner) |
 
-If `testcase_name`, `step_definitions`, or `excel_path` is missing, stop immediately and report what is missing — do not guess or invent steps.
+If `testcase_name`, `step_definitions`, `excel_path`, or `db_connection_name` is missing, stop immediately and report what is missing — do not guess or invent steps.
 
 If `row_number` is missing, locate the row by matching the **Test name** column (see column mapping below) against the original test name before write-back; if no row matches, report the error and still return the verdict without writing Excel.
 
@@ -63,9 +63,9 @@ Each invocation is one **complete test case**. Do not return a verdict until all
 **Before Step 1**, read `.cursor/rules/test-rules.md` in full. That file is the **single source of truth** for:
 
 - Mandatory per-step workflow (read → infer → state → apply → note tag mismatches)
-- Step type inference (UI, REST, SQL, SOAP, BACKEND) and disambiguation
+- Step type inference (UI, SQL) and disambiguation
 - Context passing (`context = {}`) **within this test case**
-- UI / UI Resume / REST / SQL / SOAP / BACKEND protocols
+- UI / UI Resume / SQL protocols
 - Global error handling
 - Output paths and deliverables
 
@@ -81,10 +81,12 @@ Do **not** duplicate or override those protocols inline. If an explicit `[TYPE]`
 6. Initialize `context = {}` for this test case.
 7. Execute **every step in order** without stopping for another agent invocation:
    - **Read** the entire step instruction — do not skim or assume from step number alone.
-   - **Infer** type (UI, REST, SQL, SOAP, BACKEND); log e.g. `Step 3 → inferred: SQL`.
-   - If a step mixes types (e.g. “query DB then click Save”), split into sub-actions and apply each type’s rules in order within that step.
-   - If current step is **UI** and the **previous** step was SQL, REST, SOAP, or BACKEND → run **UI Resume Protocol** first (see test-rules).
-   - **Execute** using Playwright MCP for UI; use libraries in test-rules for non-UI (DBLibrary, SSHLibrary, `requests`, `zeep`).
+   - **Infer** type (UI, SQL); log e.g. `Step 3 → inferred: SQL`.
+   - If a step mixes UI and SQL (e.g. “query DB then click Save”), split into sub-actions and apply each type’s rules in order within that step.
+   - If current step is **UI** and the **previous** step was SQL → run **UI Resume Protocol** first (see test-rules).
+   - **Execute** using Playwright MCP for UI and `user-oracle-sqlcl` MCP for SQL.
+   - For SQL, always use `db_connection_name` as the SQLCL MCP `connection_name`.
+   - If a step instruction describes REST/SOAP/BACKEND behavior, fail the test with a clear remark that only UI/SQL flows are supported.
    - Store every extracted value in `context`; never hardcode cross-step values.
    - Screenshot the result of each step → `screenshots/{testcase_name}/`.
    - Log UI actions in Python Playwright format (for inclusion in the final script).
@@ -97,10 +99,12 @@ Do **not** duplicate or override those protocols inline. If an explicit `[TYPE]`
 | Layer | Tool |
 |-------|------|
 | **UI** | Playwright MCP (`user-playwright`) — `browser_snapshot` first; element methods only; **no** raw mouse clicks |
-| **Files** | Read / Write / Grep — payloads under `requests/`, output script, screenshots under `screenshots/{testcase_name}/` |
-| **Shell** | Create `screenshots/{testcase_name}/`, clean `.playwright-mcp/`, write **Result**/**Remark** to `excel_path` via `openpyxl`; prefer DBLibrary / SSHLibrary from test-rules for DB/SSH |
+| **DB** | Oracle SQLCL MCP (`user-oracle-sqlcl`) — `connect`, `run-sql`, `disconnect` |
+| **Files** | Read / Write / Grep — output script and screenshots under `screenshots/{testcase_name}/` |
+| **Shell** | Create `screenshots/{testcase_name}/`, clean `.playwright-mcp/`, write **Result**/**Remark** to `excel_path` via `openpyxl` |
 
-Use `db_configs` / `ssh_configs` when provided; do not invent credentials.
+Use `db_connection_name` as the SQLCL `connection_name`; do not invent DB connections.
+Do not attempt to pass raw DB credentials/host/service to MCP `connect`; MCP connect accepts the SQLCL named connection only.
 
 ## Deliverables
 
@@ -131,7 +135,11 @@ Use the **first sheet** unless a sheet named `Test Cases` or `Tests` exists — 
 
 1. Target row: `row_number` when provided; otherwise find the first data row whose **Test name** cell matches the test name (compare trimmed text; filename-safe `testcase_name` is a fallback only if the original name is unavailable).
 2. Set **Result** → `PASSED` or `FAILED`.
-3. Set **Remark** → brief success note on pass; one-line failure summary on fail.
+3. Set **Remark**:
+   - **On pass (UI-only):** brief success note (key captured values).
+   - **On pass (with SQL verification):** one-line summary of verification outcome, then append each SQL statement executed (verbatim, one per line, prefixed e.g. `SQL1:` / `SQL2:`). Include bind values resolved from `context` (agreement name, agreement_id, trans_id, etc.).
+   - **On fail:** one-line failure summary; if SQL was run, append the failing query and any Oracle error text.
+   - Keep Remark readable — no credentials; truncate only if a single cell would exceed ~32,000 characters (Excel limit).
 4. Preserve all other columns and formatting where possible.
 5. Call `workbook.save(excel_path)` immediately after updating this row.
 6. If Result/Remark columns are missing from row 1, log the headers found and skip write-back — still return the verdict.
@@ -170,7 +178,7 @@ Return **one** verdict only after the entire test case finishes **and** Excel wr
 - PASSED
 
 **Remark** (for Excel)
-- (leave empty or brief success note)
+- (brief success note; include SQL queries when SQL verification steps ran)
 ```
 
 **On failure:**

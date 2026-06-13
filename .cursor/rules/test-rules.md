@@ -22,18 +22,23 @@ Used by **test-agent** when invoked by **test-runner** (see `.cursor/commands/te
 
 ## Purpose
 
-Execute **all** steps for one test case in a single run. For each step, **read the instruction carefully**, infer what kind of action it requires, and apply the matching protocol below. Use Playwright MCP for UI work and the appropriate libraries for non-UI work. When **every** step is done (or the test case fails irrecoverably), produce a **self-contained, re-runnable** Python script named `{testcase_name}.py` and return one verdict to test-runner.
+Execute **all** steps for one test case in a single run. For each step, **read the instruction carefully**, infer what kind of action it requires, and apply the matching protocol below. This project supports only two execution flows:
+
+- `UI` steps via Playwright MCP
+- `SQL` steps via `user-oracle-sqlcl` MCP
+
+When **every** step is done (or the test case fails irrecoverably), produce a **self-contained, re-runnable** Python script named `{testcase_name}.py` and return one verdict to test-runner.
 
 ---
 
 ## Step Instructions — Read Carefully, Infer Type, Apply Rules
 
-**Before executing any step**, read its full instruction text and decide which step type it implies. Steps may be numbered (`Step 1: …`) or plain prose; an explicit `[UI]` / `[REST]` tag is optional—**the instruction content is the source of truth**.
+**Before executing any step**, read its full instruction text and decide which step type it implies. Steps may be numbered (`Step 1: ...`) or plain prose; an explicit `[UI]` / `[SQL]` tag is optional — **the instruction content is the source of truth**.
 
 ### Mandatory per-step workflow
 
 1. **Read** the entire step instruction—do not skim or assume from step number alone.
-2. **Infer** the step type (`UI`, `REST`, `SQL`, `SOAP`, or `BACKEND`) from verbs, targets, and technology named in the text.
+2. **Infer** the step type (`UI` or `SQL`) from verbs, targets, and technology named in the text.
 3. **State** the inferred type briefly in your execution log (e.g. `Step 3 → inferred: SQL`).
 4. **Apply** the full rule block for that type from the sections below.
 5. If an explicit `[TYPE]` tag is present and it **conflicts** with what the instruction describes, **follow the instruction** and note the mismatch.
@@ -45,21 +50,17 @@ Preserve blank lines, comments, and section headers in the step block as-is.
 | Inferred type | Instruction usually involves… | Examples |
 |---------------|----------------------------------|----------|
 | **UI** | Browser, page, screen, login form, button, link, field, dropdown, tab, modal, navigation, click, type/fill, select option, verify text/element on screen | “Log in to FAM”, “Click Submit”, “Select country from dropdown”, “Verify order appears in grid” |
-| **REST** | HTTP/REST API, endpoint, GET/POST/PUT/PATCH/DELETE, JSON request/response, status code, bearer token, `requests/` payload file | “POST to `/api/orders`”, “Call REST service with body from `requests/create_order.json`” |
 | **SQL** | Database, query, SELECT/INSERT/UPDATE/DELETE, table/column, Oracle, row count, fetch from DB, validate in database | “Run query to get OFFER_ID”, “Verify status in ORDERS table” |
-| **SOAP** | SOAP, WSDL, XML envelope, operation name, zeep, SOAP endpoint | “Invoke CreateOrder SOAP operation”, “Send XML to billing service” |
-| **BACKEND** | SSH, remote server, shell/CLI on host, log file on server, grep/tail on machine, execute command on app server | “SSH to app server and run `grep` in log”, “Restart service via command line on host” |
 
 **Disambiguation**
 
-- UI vs REST: interaction with a **visible application in the browser** → UI; **programmatic HTTP call** with no browser action → REST.
-- SQL vs BACKEND: **structured query against a database** → SQL; **OS-level command or log inspection on a host** → BACKEND.
-- REST vs SOAP: **JSON/REST endpoint** → REST; **SOAP/XML/WSDL** → SOAP.
-- If a single step mixes types (e.g. “query DB then click Save”), split mentally into sub-actions and apply each type’s rules in order within that step.
+- UI vs SQL: interaction with a **visible application in the browser** → UI; **database query/validation** against Oracle objects → SQL.
+- If a single step mixes UI and SQL (e.g. “query DB then click Save”), split into sub-actions and apply each type’s rules in order within that step.
+- If a step instruction describes REST/SOAP/BACKEND behavior, treat it as unsupported for this framework and fail the test with a clear `Remark` that the step must be rewritten as UI/SQL.
 
 ### UI resume trigger (inferred types)
 
-When the **inferred** type of the current step is **UI** and the **previous** step was inferred as **SQL**, **REST**, **SOAP**, or **BACKEND**, run the **UI Resume Protocol** before any UI action—even if no `[UI]` tag was written.
+When the **inferred** type of the current step is **UI** and the **previous** step was inferred as **SQL**, run the **UI Resume Protocol** before any UI action—even if no `[UI]` tag was written.
 
 ---
 
@@ -72,10 +73,10 @@ When the **inferred** type of the current step is **UI** and the **previous** st
 | `input_values` | No | Raw `Input Values` cell text — `key - value` lines that fill the `{placeholder}` tokens in the steps |
 | `excel_path` | Yes | Source Excel workbook — test-agent writes **Result** and **Remark** here |
 | `row_number` | Yes | Excel row for this test name (used for write-back) |
-| `db_configs` | No | DB env mappings, e.g. `sbx1_oracle: user/pass@host:port/service` |
-| `ssh_configs` | No | SSH mappings, e.g. `sbx1-app01: user/pass@host` |
+| `db_connection_name` | Yes | Default SQLCL connection name from `.env` key `DB_CONNECTION` (passed by test-runner) |
 
-If configs are provided, use them for inferred SQL / BACKEND steps instead of inventing credentials.
+Use `db_connection_name` as the SQLCL `connection_name` for all SQL steps in the test case.
+`ORACLE_DB_*` values in `.env` are environment metadata for validation/traceability; they are not passed to MCP `connect`.
 
 Do not read step definitions from Excel in test-agent — test-runner supplies `step_definitions` verbatim from the step column. test-agent **does** open `excel_path` only to write **Result** and **Remark** for the current test name (via `row_number`).
 
@@ -86,9 +87,9 @@ Do not read step definitions from Excel in test-agent — test-runner supplies `
 ### Context Passing
 
 - Initialize `context = {}` once at the start of the test case (one test-agent invocation)
-- Store every extracted value (API, DB, UI scrape, backend output) in `context`
+- Store every extracted value (DB output, UI scrape) in `context`
 - Read from `context` in later steps within the **same** test case — **never** hardcode values from prior steps
-- Example: API returns `order_id` → `context["order_id"]` → UI step fills order_id field from context
+- Example: SQL returns `order_id` → `context["order_id"]` → UI step fills order_id field from context
 - Do not carry `context` to a different test name — test-runner starts a fresh test-agent call per row
 
 ### Input Value Substitution
@@ -140,7 +141,7 @@ Before interacting on a newly loaded page:
 
 ## UI Resume Protocol
 
-**When the current step is inferred as UI and the previous step was inferred as SQL, REST, SOAP, or BACKEND** — treat the browser as unknown:
+**When the current step is inferred as UI and the previous step was inferred as SQL** — treat the browser as unknown:
 
 1. Take a **fresh** `browser_snapshot` — do not assume the page is unchanged
 2. Verify page state: URL unchanged, no timeout page, no session expiry / login redirect
@@ -148,73 +149,29 @@ Before interacting on a newly loaded page:
 4. Stabilize: `page.waitForLoadState('networkidle')` + `page.waitForSelector()` on target
 5. Then proceed with the standard UI protocol above
 
----
+## SQL — Oracle SQLCL MCP Only (apply when step is inferred as SQL)
 
-## REST (apply when step is inferred as REST)
+Do **not** use `DBLibrary.py` or direct DB drivers in test-agent SQL execution. Use `user-oracle-sqlcl` MCP tools only.
 
-- Use the `requests` library
-- Load body from `requests/<filename>.json` or `.xml` in workspace
-- Replace placeholders with `context` values before sending
-- Log: method, URL, status code, response snippet
-- Retry once on 5xx or timeout; on failure log full request + response
-- Store required response values in `context`
+### Required SQL execution protocol
 
----
+1. Resolve `connection_name`:
+   - use `db_connection_name` from test-runner (sourced from `.env` `DB_CONNECTION`) with no overrides.
+2. Call MCP `connect` with the resolved `connection_name`.
+3. Execute query via MCP `run-sql`.
+4. Parse returned CSV:
+   - Row 1 is header.
+   - Build per-column arrays in `context`, e.g. `context["ORDER_ID"] = ["1001", "1002"]`.
+   - For single-row results, also store scalar aliases when needed for later placeholders.
+5. Log query + compact result snippet.
+6. Always call MCP `disconnect` in cleanup/finalization for that DB interaction.
 
-## SQL — DBLibrary Only (apply when step is inferred as SQL)
+### SQL failure handling
 
-Do **not** use raw cx_Oracle. Use [DBLibrary.py](../Keywords/DBLibrary.py).
-
-```python
-from Keywords.DBLibrary import DBLibrary
-
-db = DBLibrary(
-    username="<DB_USER>",
-    password="<DB_PASS>",
-    hostname="<DB_HOST>",
-    port="<DB_PORT>",
-    servicename="<DB_SERVICE>",
-)
-result = db.ExecuteDB(query)
-# result: {"COL_NAME": [val1, val2, ...]}
-context["key"] = result["COL_NAME"][0]
-```
-
-- `ExecuteDB()` handles connect, query, and close
-- Log: query + result snippet
-- On error: log query + exception; screenshot UI if browser session is open
-
----
-
-## SOAP (apply when step is inferred as SOAP)
-
-- Use `zeep` or raw `requests` with XML body from `requests/` folder
-- Replace placeholders with `context` values before sending
-- Parse response XML; store needed values in `context`
-- Log: WSDL, operation, response snippet
-
----
-
-## BACKEND — SSHLibrary Only (apply when step is inferred as BACKEND)
-
-Do **not** use raw paramiko. Use [SSHLibrary.py](../Keywords/SSHLibrary.py).
-
-```python
-from Keywords.SSHLibrary import SSHLibrary
-
-ssh = SSHLibrary(
-    hostname="<HOST>",
-    username="<SSH_USER>",
-    password="<SSH_PASS>",
-)
-ssh.connect()
-output = ssh.execute_command(command)
-ssh.close()
-```
-
-- `output` is raw stdout — parse and store required values in `context`
-- Log: host, command, output snippet
-- On error: log command + exception; if `connect()` fails, log host and user
+- If `connect` fails: log the `connection_name` and error, then fail the test case.
+- If `run-sql` fails: log query + MCP error payload, then fail the test case.
+- If CSV parsing fails: log raw SQL output snippet and parser error, then fail the test case.
+- If browser session is open during SQL failure, also save a UI screenshot for correlation.
 
 ---
 
@@ -228,22 +185,11 @@ ssh.close()
 - If element was clicked but no desired result: verify action occurred, single retry after 5 seconds
 - Use judgement to fix; log every fix attempt
 
-### API Failures (REST / SOAP)
+### DB Failures (Oracle SQLCL MCP)
 
-- Retry once on 5xx or timeout
-- On failure: log full request + response
-
-### DB Failures (DBLibrary)
-
-- Log query + connection error
+- Log query + connection/runtime error
 - Screenshot current UI state for correlation
-- If `ExecuteDB` raises, catch and log the returned error string
-
-### Backend/SSH Failures (SSHLibrary)
-
-- Log host + command + error
-- If `connect()` fails, log connection details (host, user)
-- If `execute_command()` raises, catch and log output so far
+- Include SQLCL MCP response snippet and connection name in the failure log
 
 ### All Failures
 
@@ -256,13 +202,11 @@ ssh.close()
 
 ```text
 Orchestration: test-runner → one test-agent call per test name → all steps in step_definitions
-Per step:      READ instruction carefully → INFER type (UI|REST|SQL|SOAP|BACKEND) → APPLY matching rules
+Per step:      READ instruction carefully → INFER type (UI|SQL) → APPLY matching rules
 Context:       context = {} once per test case; no hardcoded cross-step values; reset per test name
 UI:            snapshot → selector → Playwright element action → screenshot → log Playwright code
-UI after inferred non-UI: UI resume (fresh snapshot, session check, stabilize)
-SQL:           DBLibrary.ExecuteDB
-BACKEND:       SSHLibrary.execute_command
-REST/SOAP:     payloads in requests/; context placeholders; retry 5xx once
+UI after SQL:  UI resume (fresh snapshot, session check, stabilize)
+SQL:           user-oracle-sqlcl MCP (connect → run-sql → parse CSV → disconnect)
 On failure:    dump context + screenshot; one verdict (no per-step agent re-invocation)
 Deliver:       {testcase_name}.py — full test case; screenshots/{testcase_name}/; Result+Remark to excel_path; one verdict
 ```
